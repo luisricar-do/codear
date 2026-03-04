@@ -1,0 +1,85 @@
+---
+description: Como criar e cadastrar novos cursos e módulos no CODEAR
+globs: ["content/**/*.md", "content/**/manifest.json", "scripts/generate-manifest.js"]
+---
+
+# Cursos e módulos — Como criar e cadastrar
+
+## Onde fica o conteúdo
+Todo o material didático fica na pasta **`content/cursos/`** na **raiz do projeto** (fora de `public/`). O Vite serve em `/content` em dev e copia para `dist/content` no build.
+
+## Estrutura de um curso
+
+Cada curso é uma **pasta** com **slug em minúsculas** (ex.: `1-primeiros-passos`, `python-basico`). Dentro dela:
+
+```
+content/cursos/
+  <slug-do-curso>/           ex.: 1-primeiros-passos
+    curso.md                 obrigatório — markdown do curso (título + texto)
+    <slug-do-modulo-1>/      ex.: logica-programacao
+      README.md              obrigatório — descrição do módulo
+      slides.pdf             opcional — PDF dos slides
+    <slug-do-modulo-2>/
+      README.md
+      slides.pdf
+    ...
+```
+
+## Regras por arquivo
+
+### curso.md
+- **Primeira linha:** deve ser um heading de nível 1 (`# Título do curso`). Esse título é o **nome do curso** no site (lista de cursos, página do curso).
+- O restante é livre em Markdown: descrição, missão, mentor, cronograma, etc.
+- Exemplo:
+  ```markdown
+  # Iniciando no mundo da programação
+
+  Texto de apresentação do curso...
+  ## Sobre o curso
+  ...
+  ```
+
+### README.md (de cada módulo)
+- **Primeira linha:** heading nível 1 (`# Nome do módulo`). Esse título aparece na lista de módulos e no topo da página do módulo.
+- O restante descreve o módulo; pode mencionar que abaixo há o PDF dos slides.
+- Exemplo:
+  ```markdown
+  # Lógica de Programação
+
+  Slides do módulo de **Lógica de Programação**: ...
+  Use os controles abaixo para navegar pelos slides.
+  ```
+
+### slides.pdf
+- Nome fixo: **`slides.pdf`** dentro da pasta do módulo.
+- Se não existir, o módulo continua válido; a página do módulo mostra apenas o texto do README e uma mensagem de que não há PDF.
+
+## Slug
+- Use **minúsculas**, **números** e **hífen** (ex.: `1-primeiros-passos`, `logica-programacao`).
+- Evite espaços e caracteres especiais; o slug é usado na URL (`/cursos/<courseSlug>/<moduleSlug>`).
+
+## Manifest (lista de cursos no site)
+O site não lê as pastas diretamente; usa o arquivo **`content/cursos/manifest.json`**, que é **gerado** pelo script:
+
+```bash
+npm run content:manifest
+```
+
+- O script **escaneia** `content/cursos/` e, para cada pasta que tenha `curso.md`, lê o título (primeiro `#`) e descobre os módulos (subpastas com `README.md`).
+- **Sempre que criar ou alterar** um curso ou módulo (ou o título no `curso.md`), rode `npm run content:manifest` para atualizar o manifest.
+- Não edite `manifest.json` à mão de forma consistente; o script sobrescreve.
+
+## Checklist para novo curso
+1. Criar pasta em `content/cursos/<slug-do-curso>/`.
+2. Criar `curso.md` com `# Nome do curso` na primeira linha e o restante do conteúdo.
+3. Para cada módulo, criar subpasta `<slug-do-modulo>/` com:
+   - `README.md` (primeira linha: `# Nome do módulo`).
+   - `slides.pdf` (opcional).
+4. Rodar `npm run content:manifest`.
+5. Verificar no site: Home (seção Cursos) e `/cursos` devem listar o curso; `/cursos/<courseSlug>` e `/cursos/<courseSlug>/<moduleSlug>` devem abrir corretamente.
+
+## Checklist para novo módulo em curso existente
+1. Criar subpasta em `content/cursos/<curso-existente>/<slug-do-modulo>/`.
+2. Criar `README.md` com `# Nome do módulo` e descrição.
+3. Colocar `slides.pdf` na mesma pasta (se houver).
+4. Rodar `npm run content:manifest`.

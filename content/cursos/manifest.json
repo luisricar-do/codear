@@ -1,0 +1,14 @@
+{
+  "courses": {
+    "1-introducao-programacao": {
+      "title": "Introdução a Programação",
+      "modules": [
+        {
+          "slug": "introducao-ao-mundo-da-tecnologia",
+          "title": "Introdução ao mundo da tecnologia",
+          "hasSlides": true
+        }
+      ]
+    }
+  }
+}

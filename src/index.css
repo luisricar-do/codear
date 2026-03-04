@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #f97316;
+  --color-primary-hover: #ea580c;
+  --color-bg: #fafafa;
+  --color-bg-elevated: #f5f5f5;
+  --color-bg-card: #ffffff;
+  --color-border: #e5e5e5;
+  --color-muted: #737373;
+  --color-text: #171717;
+  --color-text-muted: #525252;
+  --font-mono: "Fira Code", "Courier Prime", ui-monospace, monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-[var(--color-bg)] font-sans antialiased;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Prose: ajustes de tema para conteúdo markdown (complementa @tailwindcss/typography) */
+.prose-codear {
+  --tw-prose-body: var(--color-text-muted);
+  --tw-prose-headings: var(--color-text);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-counters: var(--color-primary);
+  --tw-prose-bullets: var(--color-primary);
+  --tw-prose-quotes: var(--color-text-muted);
+  --tw-prose-quote-borders: var(--color-primary);
+  --tw-prose-code: var(--color-primary);
+  --tw-prose-pre-bg: var(--color-bg-elevated);
+  --tw-prose-hr: var(--color-border);
+}

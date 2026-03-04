@@ -1,0 +1,61 @@
+---
+description: Regras de programação do projeto CODEAR (React, Vite, Tailwind)
+globs: ["src/**/*.jsx", "src/**/*.js", "src/**/*.css", "vite.config.js", "*.config.js"]
+---
+
+# Regras de programação — CODEAR
+
+## Stack
+- **Build:** Vite 7
+- **Framework:** React 19
+- **Estilo:** Tailwind CSS 4 (com `@tailwindcss/vite`)
+- **Ícones:** Lucide React
+- **Animações:** Framer Motion
+- **Roteamento:** React Router DOM v7
+- **Markdown:** react-markdown + remark-gfm
+- **PDF:** react-pdf
+
+## Convenções de código
+
+### React / JSX
+- Usar **function components** (não classes).
+- Nomes de componentes em **PascalCase**; um componente por arquivo quando fizer sentido.
+- Manter imports no topo do arquivo (evitar imports inline).
+- Props de componentes: preferir desestruturação quando há mais de uma prop.
+- Para rotas dinâmicas, usar `useParams()` do React Router; para navegação programática, `useNavigate()`.
+
+### Estilização (Tailwind)
+- Preferir **variáveis CSS do tema** definidas em `src/index.css`:
+  - `--color-primary`, `--color-primary-hover`
+  - `--color-bg`, `--color-bg-elevated`, `--color-bg-card`
+  - `--color-border`, `--color-muted`
+  - `--color-text`, `--color-text-muted`
+- Para texto principal usar `text-[var(--color-text)]`; para secundário `text-[var(--color-text-muted)]`.
+- Cards e blocos elevados: `bg-[var(--color-bg-card)]` com `shadow-sm` e `border border-[var(--color-border)]`.
+- Títulos em monospace: `font-mono` (já configurado para h1/h2/h3 no base).
+- Manter o tema **claro** (fundo claro, texto escuro).
+
+### Animações (Framer Motion)
+- Usar `motion` para elementos que entram na tela (ex.: `motion.section`, `motion.div`).
+- Preferir `initial`, `animate`, `whileInView` e `viewport={{ once: true }}` para entradas suaves.
+- Evitar animações pesadas ou muitas simultâneas; usar `transition={{ delay }}` para escalonar.
+
+### Dados e conteúdo
+- Conteúdo dos cursos fica em **`content/cursos/`** (raiz do projeto), **não** em `public/`.
+- Acesso a cursos/módulos via `src/data/content.js`: `getManifest()`, `getCourseMarkdown()`, `getModuleMarkdown()`, `getModuleSlidesUrl()`.
+- O app espera que o conteúdo seja servido em `/content/` (plugin Vite em `vite-plugin-content.js` em dev e cópia no build).
+
+### Estrutura de pastas (src)
+- `src/components/` — componentes reutilizáveis (Header, Footer, PDFViewer, MarkdownContent, etc.).
+- `src/pages/` — páginas por rota (Home, Cursos, Curso, Modulo).
+- `src/data/` — funções de acesso a dados (content.js).
+
+### Rotas
+- `/` — Home (landing)
+- `/cursos` — Lista de cursos
+- `/cursos/:courseSlug` — Página do curso (curso.md + lista de módulos)
+- `/cursos/:courseSlug/:moduleSlug` — Página do módulo (README.md + PDF de slides)
+
+### Qualidade
+- Respeitar o ESLint do projeto.
+- Manter acessibilidade básica: `aria-label` em botões só de ícone, textos alternativos quando fizer sentido.
