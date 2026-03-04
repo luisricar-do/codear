@@ -14,7 +14,7 @@ export function Hero() {
         className="relative z-10 max-w-3xl text-center"
       >
         <motion.img
-          src="/assets/icone-pequeno.png"
+          src={`${import.meta.env.BASE_URL}assets/icone-pequeno.png`}
           alt=""
           className="mx-auto mb-6 h-24 w-auto sm:h-32"
           initial={{ opacity: 0, scale: 0.95 }}

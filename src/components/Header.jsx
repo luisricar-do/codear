@@ -16,7 +16,7 @@ export function Header() {
           className="flex items-center font-mono text-lg font-semibold text-[var(--color-text)] transition hover:opacity-90"
         >
           <img
-            src="/assets/icone-grande.png"
+            src={`${import.meta.env.BASE_URL}assets/icone-grande.png`}
             alt="CODEAR"
             className="h-10 w-auto sm:h-12"
           />
