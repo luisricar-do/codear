@@ -1,4 +1,4 @@
-const BASE = "/content/cursos";
+const BASE = `${import.meta.env.BASE_URL}content/cursos`;
 
 /**
  * @returns {Promise<{ courses: Record<string, { title: string, modules: { slug: string, title: string, hasSlides: boolean }[] }> }>}
