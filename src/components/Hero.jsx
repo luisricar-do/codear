@@ -1,144 +1,261 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight, Terminal } from "lucide-react";
+import { motion, useInView, useMotionValue, animate } from "framer-motion";
+import { useRef, useEffect } from "react";
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.1,
+      staggerChildren: 0.08,
+      delayChildren: 0.15,
     },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0 },
 };
 
-const titleChars = "CODEAR".split("");
-const subtitle = "Do Zero ao Código";
+const lineItem = {
+  hidden: { opacity: 0, y: 6 },
+  show: { opacity: 1, y: 0 },
+};
+
+const stats = [
+  { value: 500, suffix: "+", label: "Alunos formados" },
+  { value: 85, suffix: "%", label: "Taxa de conclusão" },
+  { value: 120, suffix: "+", label: "Mentores ativos" },
+  { value: 8, suffix: "", label: "Semanas de curso" },
+];
+
+const codeByLine = [
+  [{ type: "comment", text: "# Sua jornada começa aqui" }],
+  [
+    { type: "keyword", text: "def " },
+    { type: "function", text: "aprender" },
+    { type: "plain", text: "(dedicacao):" },
+  ],
+  [
+    { type: "keyword", text: "    return " },
+    { type: "string", text: '"conhecimento"' },
+    { type: "plain", text: " + dedicacao" },
+  ],
+  [],
+  [
+    { type: "function", text: "print" },
+    { type: "plain", text: "(" },
+    { type: "string", text: '"Bem-vindo ao Codear!"' },
+    { type: "plain", text: ")" },
+  ],
+];
+
+function CountUp({ value, suffix, inView }) {
+  const motionValue = useMotionValue(0);
+  const rounded = Math.round(motionValue.get());
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!inView || hasAnimated.current) return;
+    hasAnimated.current = true;
+    const controls = animate(0, value, {
+      duration: 1.2,
+      ease: "easeOut",
+      onUpdate: (v) => motionValue.set(v),
+    });
+    return controls.stop;
+  }, [inView, value, motionValue]);
+
+  return (
+    <span>
+      {rounded}
+      {suffix}
+    </span>
+  );
+}
 
 export function Hero() {
+  const statsRef = useRef(null);
+  const codeRef = useRef(null);
+  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
+  const codeInView = useInView(codeRef, { once: true, margin: "-60px" });
+
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 pt-24 pb-16">
-      {/* Background: gradient orbs */}
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute left-1/4 top-1/4 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-primary)]/15 blur-[80px] animate-gradient-shift"
-          style={{ animationDelay: "0s" }}
-        />
-        <div
-          className="absolute right-1/4 top-1/2 h-[350px] w-[350px] translate-x-1/4 -translate-y-1/2 rounded-full bg-amber-400/10 blur-[70px] animate-gradient-shift"
-          style={{ animationDelay: "-4s" }}
-        />
-        <div
-          className="absolute bottom-1/4 left-1/2 h-[300px] w-[300px] -translate-x-1/2 translate-y-1/4 rounded-full bg-orange-600/10 blur-[60px] animate-gradient-shift"
-          style={{ animationDelay: "-8s" }}
-        />
-      </div>
-
-      {/* Grid overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(var(--color-border)_1px,transparent_1px),linear-gradient(90deg,var(--color-border)_1px,transparent_1px)] bg-[size:64px_64px] animate-grid-pulse"
-        aria-hidden
-      />
-
-      {/* Gradient fade to bg */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,var(--color-bg)_70%,var(--color-bg)_100%)] from-[var(--color-bg-elevated)]" />
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 max-w-3xl text-center"
-      >
+    <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)] pt-28 pb-20">
+      <div className="mx-auto max-w-4xl px-4">
+        {/* Barra de notificação */}
         <motion.div
-          variants={item}
-          className="mb-6 flex justify-center"
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12 flex justify-center"
         >
-          <motion.img
-            src={`${import.meta.env.BASE_URL}assets/icone-pequeno.png`}
-            alt=""
-            className="h-24 w-auto sm:h-32 drop-shadow-lg"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
-            whileHover={{ scale: 1.05, rotate: 2 }}
-          />
+          <motion.div
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-bg-elevated)] px-4 py-2 text-sm text-[var(--color-text-muted)]"
+            animate={{ opacity: [1, 0.85, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+          >
+            <span className="h-2 w-2 rounded-full bg-[var(--color-primary)]" />
+            Venha fazer parte dessa família
+          </motion.div>
         </motion.div>
 
-        <motion.h1
-          className="font-mono text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl flex flex-wrap justify-center gap-0.5 sm:gap-1"
+        {/* Título principal */}
+        <motion.div
           variants={container}
           initial="hidden"
           animate="show"
+          className="text-center"
         >
-          {titleChars.map((char, i) => (
-            <motion.span
-              key={i}
-              variants={item}
-              className="inline-block"
-              whileHover={{ y: -2, color: "var(--color-primary)" }}
-              transition={{ type: "spring", stiffness: 400 }}
-            >
-              {char}
+          <h1 className="font-mono text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl lg:text-7xl">
+            <motion.span variants={item} className="block">
+              Aprenda a programar.
             </motion.span>
-          ))}
-        </motion.h1>
+            <motion.span variants={item} className="block">
+              Ensine o mundo.
+            </motion.span>
+          </h1>
 
-        <motion.p
-          variants={item}
-          className="mt-2 font-mono text-2xl font-medium text-[var(--color-primary)] sm:text-3xl tracking-wide"
-        >
-          {subtitle}
-        </motion.p>
-
-        <motion.div
-          variants={item}
-          className="my-4"
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-card)]/90 px-4 py-1.5 text-sm text-[var(--color-text-muted)] shadow-sm backdrop-blur-sm animate-float"
-            whileHover={{ scale: 1.03, borderColor: "var(--color-primary)" }}
-            transition={{ type: "spring", stiffness: 300 }}
+          <motion.p
+            variants={item}
+            className="mx-auto mt-6 max-w-2xl text-center text-base text-[var(--color-text-muted)] sm:text-lg"
           >
-            <Terminal className="h-4 w-4 text-[var(--color-primary)]" />
-            Luis Ricardo
-          </motion.div>
-        </motion.div>
+            Desmistificamos a programação e transformamos alunos em mentores.
+            Uma jornada prática onde você aprende fazendo para poder ensinar.
+          </motion.p>
 
-        <motion.p
-          variants={item}
-          className="mt-6 text-lg text-[var(--color-text-muted)] sm:text-xl max-w-xl mx-auto"
-        >
-          O Superpoder da Programação: Hackeando a Realidade
-        </motion.p>
-
-        <motion.div variants={item} className="mt-10">
+          {/* CTAs */}
           <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-block"
+            variants={item}
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
-            <Link
-              to="/cursos"
-              className="group inline-flex items-center gap-2 rounded-xl bg-[var(--color-primary)] px-8 py-4 font-medium text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:bg-[var(--color-primary-hover)] hover:shadow-orange-500/40 hover:shadow-xl"
-            >
-              Iniciar Jornada
-              <motion.span
-                initial={0}
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 400 }}
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/cursos"
+                className="inline-flex items-center gap-1 rounded-lg bg-[var(--color-primary)] px-6 py-3.5 font-medium text-white shadow-lg shadow-orange-500/25 transition hover:bg-[var(--color-primary-hover)] hover:shadow-orange-500/40"
               >
-                <ArrowRight className="h-5 w-5" />
-              </motion.span>
-            </Link>
+                Quero Participar
+                <span className="ml-1" aria-hidden>→</span>
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                to="/#metodologia"
+                className="inline-flex items-center rounded-lg border-2 border-[var(--color-primary)] bg-transparent px-6 py-3.5 font-medium text-[var(--color-primary)] transition hover:bg-orange-50"
+              >
+                Conhecer a Metodologia
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
+
+        {/* Estatísticas 
+        <motion.div
+          ref={statsRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={statsInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mt-20 grid grid-cols-2 gap-8 sm:grid-cols-4"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={statsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="text-center"
+            >
+              <div className="font-mono text-3xl font-bold text-[var(--color-primary)] sm:text-4xl">
+                <CountUp value={stat.value} suffix={stat.suffix} inView={statsInView} />
+              </div>
+              <div className="mt-1 text-sm text-[var(--color-text-muted)]">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+        */}
+
+
+        {/* Editor de código */}
+        <motion.div
+          ref={codeRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={codeInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mt-20 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-lg"
+        >
+          {/* Barra do editor */}
+          <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3">
+            <div className="flex gap-1.5">
+              <motion.span
+                className="h-3 w-3 rounded-full bg-red-400"
+                initial={{ scale: 0 }}
+                animate={codeInView ? { scale: 1 } : {}}
+                transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
+              />
+              <motion.span
+                className="h-3 w-3 rounded-full bg-amber-400"
+                initial={{ scale: 0 }}
+                animate={codeInView ? { scale: 1 } : {}}
+                transition={{ delay: 0.25, type: "spring", stiffness: 400 }}
+              />
+              <motion.span
+                className="h-3 w-3 rounded-full bg-emerald-400"
+                initial={{ scale: 0 }}
+                animate={codeInView ? { scale: 1 } : {}}
+                transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
+              />
+            </div>
+            <span className="font-mono text-sm text-[var(--color-text-muted)]">
+              primeiro-projeto.py
+            </span>
+          </div>
+
+          {/* Código */}
+          <div className="p-4 font-mono text-sm sm:text-base">
+            <motion.div
+              variants={container}
+              initial="hidden"
+              animate={codeInView ? "show" : "hidden"}
+              transition={{ staggerChildren: 0.06, delayChildren: 0.35 }}
+              className="space-y-0.5"
+            >
+              {codeByLine.map((line, lineIndex) => (
+                <motion.div
+                  key={lineIndex}
+                  variants={lineItem}
+                  className="flex flex-wrap"
+                >
+                  {line.length === 0 ? (
+                    <span className="block h-4" aria-hidden />
+                  ) : (
+                    line.map((part, i) => (
+                      <span
+                        key={i}
+                        className={
+                          part.type === "comment"
+                            ? "text-[var(--color-muted)]"
+                            : part.type === "keyword"
+                              ? "text-blue-600"
+                              : part.type === "string"
+                                ? "text-orange-600"
+                                : part.type === "function"
+                                  ? "text-violet-600"
+                                  : "text-[var(--color-text)]"
+                        }
+                      >
+                        {part.text}
+                      </span>
+                    ))
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

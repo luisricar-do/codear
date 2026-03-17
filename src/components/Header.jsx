@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen } from "lucide-react";
 
 export function Header() {
   return (
@@ -17,23 +16,28 @@ export function Header() {
         >
           <img
             src={`${import.meta.env.BASE_URL}assets/icone-grande.png`}
-            alt="CODEAR"
+            alt="Codear"
             className="h-10 w-auto sm:h-12"
           />
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-6">
           <Link
-            to="/"
+            to="/#metodologia"
             className="text-sm text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]"
           >
-            Início
+            Metodologia
+          </Link>
+          <Link
+            to="/#jornada"
+            className="text-sm text-[var(--color-text-muted)] transition hover:text-[var(--color-text)]"
+          >
+            Jornada
           </Link>
           <Link
             to="/cursos"
-            className="flex items-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--color-primary-hover)]"
+            className="rounded-lg bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--color-primary-hover)]"
           >
-            <BookOpen className="h-4 w-4" />
-            Cursos
+            Começar Agora
           </Link>
         </nav>
       </div>

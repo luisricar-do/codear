@@ -1,8 +1,8 @@
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
-import { MentorSection } from "../components/MentorSection";
 import { MissionSection } from "../components/MissionSection";
 import { CoursesSection } from "../components/CoursesSection";
+import { CtaSection } from "../components/CtaSection";
 import { Footer } from "../components/Footer";
 
 export function Home() {
@@ -11,9 +11,9 @@ export function Home() {
       <Header />
       <main>
         <Hero />
-        <MentorSection />
         <MissionSection />
         <CoursesSection />
+        <CtaSection />
         <Footer />
       </main>
     </>

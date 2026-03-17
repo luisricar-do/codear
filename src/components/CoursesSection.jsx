@@ -18,7 +18,7 @@ export function CoursesSection() {
   const courses = manifest?.courses ? Object.entries(manifest.courses) : [];
 
   return (
-    <section className="relative border-t border-[var(--color-border)] bg-white py-20 px-4 overflow-hidden">
+    <section id="jornada" className="relative border-t border-[var(--color-border)] bg-white py-20 px-4 overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,var(--color-bg)_20%)] pointer-events-none" />
       <div className="mx-auto max-w-6xl relative">
         <motion.h2
