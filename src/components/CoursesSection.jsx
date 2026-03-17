@@ -18,27 +18,48 @@ export function CoursesSection() {
   const courses = manifest?.courses ? Object.entries(manifest.courses) : [];
 
   return (
-    <section className="border-t border-[var(--color-border)] bg-white py-20 px-4">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative border-t border-[var(--color-border)] bg-white py-20 px-4 overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,var(--color-bg)_20%)] pointer-events-none" />
+      <div className="mx-auto max-w-6xl relative">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-mono text-2xl font-bold text-[var(--color-primary)] text-center mb-12"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          className="font-mono text-2xl font-bold text-[var(--color-primary)] text-center mb-4"
         >
           Cursos
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center text-[var(--color-text-muted)] text-sm sm:text-base mb-12 max-w-xl mx-auto"
+        >
+          Comece sua jornada com conteúdo prático e didático.
+        </motion.p>
 
         {loading && (
           <div className="flex justify-center py-12">
-            <Loader2 className="h-10 w-10 animate-spin text-[var(--color-primary)]" />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex flex-col items-center gap-4"
+            >
+              <Loader2 className="h-10 w-10 animate-spin text-[var(--color-primary)]" />
+              <span className="text-sm text-[var(--color-text-muted)]">Carregando cursos...</span>
+            </motion.div>
           </div>
         )}
 
         {!loading && courses.length === 0 && (
-          <p className="text-center text-[var(--color-text-muted)]">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-[var(--color-text-muted)]"
+          >
             Nenhum curso disponível no momento.
-          </p>
+          </motion.p>
         )}
 
         {!loading && courses.length > 0 && (
@@ -46,19 +67,23 @@ export function CoursesSection() {
             {courses.map(([slug, course], i) => (
               <motion.div
                 key={slug}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
               >
                 <Link
                   to={`/cursos/${slug}`}
-                  className="group flex flex-col rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 shadow-sm transition hover:border-[var(--color-primary)]/50 hover:shadow-md"
+                  className="group flex flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-card)] p-6 shadow-sm transition-all duration-300 hover:border-[var(--color-primary)]/40 hover:shadow-lg hover:shadow-orange-500/5 hover:-translate-y-1"
                 >
-                  <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--color-primary)]/20">
-                    <BookOpen className="h-6 w-6 text-[var(--color-primary)]" />
-                  </span>
-                  <h3 className="font-mono text-lg font-semibold text-[var(--color-text)] mb-2 group-hover:text-[var(--color-primary)] transition">
+                  <motion.span
+                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-primary)]/15 text-[var(--color-primary)]"
+                    whileHover={{ scale: 1.05, rotate: -3 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    <BookOpen className="h-6 w-6" />
+                  </motion.span>
+                  <h3 className="font-mono text-lg font-semibold text-[var(--color-text)] mb-2 group-hover:text-[var(--color-primary)] transition-colors">
                     {course.title}
                   </h3>
                   <p className="text-sm text-[var(--color-text-muted)] mb-4">
@@ -66,7 +91,14 @@ export function CoursesSection() {
                   </p>
                   <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-[var(--color-primary)]">
                     Ver curso
-                    <ChevronRight className="h-4 w-4" />
+                    <motion.span
+                      className="inline-block"
+                      initial={false}
+                      whileHover={{ x: 4 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </motion.span>
                   </span>
                 </Link>
               </motion.div>

@@ -5,6 +5,6 @@ import { contentPlugin } from "./vite-plugin-content.js";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/codear/" : "/",
+  base: "/",
   plugins: [react(), tailwindcss(), contentPlugin()],
 });

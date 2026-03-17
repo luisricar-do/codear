@@ -99,7 +99,14 @@ export function Modulo() {
                 </div>
               )}
               <div className="mt-8">
-                <PDFViewer file={slidesUrl ?? undefined} />
+                <PDFViewer
+                  file={slidesUrl ?? undefined}
+                  storageKey={
+                    slidesUrl
+                      ? `codear-slides-${courseSlug}-${moduleSlug}`
+                      : undefined
+                  }
+                />
               </div>
             </motion.div>
           )}

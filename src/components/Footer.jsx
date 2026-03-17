@@ -8,8 +8,10 @@ export function Footer() {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      className="border-t border-[var(--color-border)] bg-[var(--color-bg)] py-12 px-4"
+      transition={{ duration: 0.5 }}
+      className="relative border-t border-[var(--color-border)] bg-[var(--color-bg)] py-12 px-4"
     >
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/30 to-transparent" aria-hidden />
       <div className="mx-auto max-w-6xl flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between">
         <Link
           to="/"
@@ -19,7 +21,7 @@ export function Footer() {
           CODEAR — Do Zero ao Código
         </Link>
         <p className="text-sm text-[var(--color-text-muted)]">
-          Luis Ricardo — @luisricar_do
+          Luis Ricardo — <Link to="https://luisr.com.br" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline">luisr.com.br</Link>
         </p>
       </div>
     </motion.footer>
