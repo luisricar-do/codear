@@ -1,5 +1,3 @@
-# Etapa 1: O mapa do código (introdução aos fluxogramas)
-
 Esta aula corresponde ao tema **“O Mapa do Código: Introdução aos Fluxogramas”** do material Codear. O objetivo é **desenhar o caminho do programa antes de codificar**: o computador executa exatamente o que você define; sem um mapa claro, o fluxo vira um labirinto difícil de manter.
 
 ## Resumo da aula

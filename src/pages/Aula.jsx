@@ -11,7 +11,7 @@ import {
   getModuleSlidesUrl,
 } from "../data/content";
 import { motion } from "framer-motion";
-import { ArrowLeft, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 
 export function Aula() {
   const { courseSlug, moduleSlug, lessonSlug } = useParams();
@@ -114,33 +114,46 @@ export function Aula() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-20 pb-12 px-4">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-6 flex flex-wrap items-center gap-3 text-sm">
-            <Link
-              to={courseSlug ? `/cursos/${courseSlug}` : "/cursos"}
-              className="inline-flex items-center gap-2 text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
+      <main className="min-h-screen pb-16">
+        <div className="relative border-b border-[var(--color-border)] bg-[var(--color-bg-card)] pt-20 pb-8 sm:pt-24">
+          <div className="codear-grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+          <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+            <nav
+              className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[var(--color-text-muted)]"
+              aria-label="Trilha"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Curso
-            </Link>
-            <span className="text-[var(--color-text-muted)]">/</span>
-            <Link
-              to={base}
-              className="text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
-            >
-              {moduleInfo?.title ?? "Módulo"}
-            </Link>
-            {lessonMeta && (
-              <>
-                <span className="text-[var(--color-text-muted)]">/</span>
-                <span className="text-[var(--color-text)] font-medium">
-                  {lessonMeta.title}
-                </span>
-              </>
-            )}
+              <Link
+                to={courseSlug ? `/cursos/${courseSlug}` : "/cursos"}
+                className="font-medium transition hover:text-[var(--color-primary)]"
+              >
+                Curso
+              </Link>
+              <span className="text-[var(--color-border-strong)]" aria-hidden>
+                /
+              </span>
+              <Link to={base} className="transition hover:text-[var(--color-primary)]">
+                {moduleInfo?.title ?? "Módulo"}
+              </Link>
+              {lessonMeta ? (
+                <>
+                  <span className="text-[var(--color-border-strong)]" aria-hidden>
+                    /
+                  </span>
+                  <span className="font-mono text-[var(--color-text)] font-semibold">
+                    {lessonMeta.title}
+                  </span>
+                </>
+              ) : null}
+            </nav>
+            {lessonMeta ? (
+              <h1 className="mt-5 font-mono text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">
+                {lessonMeta.title}
+              </h1>
+            ) : null}
           </div>
+        </div>
 
+        <div className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 sm:pt-10">
           {loading && (
             <div className="flex justify-center py-16">
               <Loader2 className="h-10 w-10 animate-spin text-[var(--color-primary)]" />
@@ -172,7 +185,7 @@ export function Aula() {
                   {prevLesson ? (
                     <Link
                       to={`${base}/${prevLesson.slug}`}
-                      className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 text-sm text-[var(--color-text)] transition hover:border-[var(--color-primary)]/50"
+                      className="codear-card-hover inline-flex min-h-[3rem] items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 text-sm font-medium text-[var(--color-text)] transition hover:border-[var(--color-primary)]/45"
                     >
                       <ChevronLeft className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
                       <span className="min-w-0 truncate">{prevLesson.title}</span>
@@ -183,7 +196,7 @@ export function Aula() {
                   {nextLesson ? (
                     <Link
                       to={`${base}/${nextLesson.slug}`}
-                      className="inline-flex items-center justify-end gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 text-sm text-[var(--color-text)] transition hover:border-[var(--color-primary)]/50 sm:text-right"
+                      className="codear-card-hover inline-flex min-h-[3rem] items-center justify-end gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 text-sm font-medium text-[var(--color-text)] transition hover:border-[var(--color-primary)]/45 sm:text-right"
                     >
                       <span className="min-w-0 truncate">{nextLesson.title}</span>
                       <ChevronRight className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />

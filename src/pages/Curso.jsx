@@ -19,7 +19,7 @@ function ModuleList({ modules, courseSlug }) {
         >
           <Link
             to={`/cursos/${courseSlug}/${mod.slug}`}
-            className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
+            className="codear-card-hover flex items-center justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3.5 shadow-sm transition hover:border-[var(--color-primary)]/45"
           >
             <span className="flex flex-col gap-0.5 min-w-0 flex-1">
               <span className="flex items-center gap-3">
@@ -104,16 +104,36 @@ export function Curso() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-20 px-4 sm:px-6 lg:px-8 pb-24 lg:pb-12">
-        <div className="mx-auto max-w-6xl lg:max-w-7xl">
-          <Link
-            to="/cursos"
-            className="mb-6 inline-flex items-center gap-2 text-sm text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar aos cursos
-          </Link>
+      <main className="min-h-screen pb-24 lg:pb-12">
+        <div className="relative border-b border-[var(--color-border)] bg-[var(--color-bg-card)] pt-20 pb-8 sm:pt-24 sm:pb-10">
+          <div className="codear-grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <Link
+              to="/cursos"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              Voltar aos cursos
+            </Link>
+            {!loading && course ? (
+              <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                    Curso
+                  </p>
+                  <h1 className="mt-1 max-w-3xl font-mono text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">
+                    {course.title}
+                  </h1>
+                </div>
+                <p className="text-sm text-[var(--color-text-muted)]">
+                  {course.modules.length} módulo{course.modules.length !== 1 ? "s" : ""}
+                </p>
+              </div>
+            ) : null}
+          </div>
+        </div>
 
+        <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:max-w-7xl lg:px-8 lg:pt-10">
           {loading && (
             <div className="flex justify-center py-16">
               <Loader2 className="h-10 w-10 animate-spin text-[var(--color-primary)]" />

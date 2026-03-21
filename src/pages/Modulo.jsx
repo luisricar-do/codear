@@ -75,16 +75,31 @@ export function Modulo() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-20 pb-12 px-4">
-        <div className="mx-auto max-w-4xl">
-          <Link
-            to={courseSlug ? `/cursos/${courseSlug}` : "/cursos"}
-            className="mb-6 inline-flex items-center gap-2 text-sm text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar ao curso
-          </Link>
+      <main className="min-h-screen pb-16">
+        <div className="relative border-b border-[var(--color-border)] bg-[var(--color-bg-card)] pt-20 pb-8 sm:pt-24">
+          <div className="codear-grid-bg pointer-events-none absolute inset-0 opacity-40" aria-hidden />
+          <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+            <Link
+              to={courseSlug ? `/cursos/${courseSlug}` : "/cursos"}
+              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition hover:text-[var(--color-primary)]"
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              Voltar ao curso
+            </Link>
+            {!loading && moduleInfo ? (
+              <div className="mt-6">
+                <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                  Módulo
+                </p>
+                <h1 className="mt-1 font-mono text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">
+                  {moduleInfo.title}
+                </h1>
+              </div>
+            ) : null}
+          </div>
+        </div>
 
+        <div className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 sm:pt-10">
           {loading && (
             <div className="flex justify-center py-16">
               <Loader2 className="h-10 w-10 animate-spin text-[var(--color-primary)]" />
@@ -128,7 +143,7 @@ export function Modulo() {
                       >
                         <Link
                           to={`/cursos/${courseSlug}/${moduleSlug}/${aula.slug}`}
-                          className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
+                          className="codear-card-hover flex items-center justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3.5 shadow-sm transition hover:border-[var(--color-primary)]/45"
                         >
                           <span className="flex items-center gap-3 min-w-0 flex-1">
                             <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />

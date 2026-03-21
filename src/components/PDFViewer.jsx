@@ -127,7 +127,7 @@ export function PDFViewer({ file, storageKey }) {
 
   useEffect(() => {
     if (!isFullscreen) return;
-    setShowControls(true);
+    queueMicrotask(() => setShowControls(true));
     const t = setTimeout(() => setShowControls(false), 2500);
     return () => clearTimeout(t);
   }, [isFullscreen]);
@@ -147,7 +147,9 @@ export function PDFViewer({ file, storageKey }) {
 
   useEffect(() => {
     if (numPages == null) return;
-    setPageNumber((p) => Math.min(Math.max(1, p), numPages));
+    queueMicrotask(() =>
+      setPageNumber((p) => Math.min(Math.max(1, p), numPages))
+    );
   }, [numPages]);
 
   useEffect(() => {
@@ -392,8 +394,8 @@ export function PDFViewer({ file, storageKey }) {
                     aria-label={`Ir para slide ${n}`}
                     onClick={() => setPageNumber(n)}
                     className={`h-2 rounded-full transition-all ${pageNumber === n
-                        ? "w-6 bg-[var(--color-primary)]"
-                        : "w-2 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"
+                      ? "w-6 bg-[var(--color-primary)]"
+                      : "w-2 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"
                       }`}
                   />
                 ))}
