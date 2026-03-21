@@ -1,6 +1,6 @@
 ---
 description: Como criar e cadastrar novos cursos e módulos no CODEAR
-globs: ["content/**/*.md", "content/**/manifest.json", "scripts/generate-manifest.js"]
+globs: ["content/**/*.md", "content/**/manifest.json", "content/cursos/index.json"]
 ---
 
 # Cursos e módulos — Como criar e cadastrar
@@ -17,8 +17,12 @@ content/cursos/
   <slug-do-curso>/           ex.: 1-primeiros-passos
     curso.md                 obrigatório — markdown do curso (título + texto)
     <slug-do-modulo-1>/      ex.: logica-programacao
-      README.md              obrigatório — descrição do módulo
+      README.md              obrigatório — visão geral do módulo (hub)
       slides.pdf             opcional — PDF dos slides
+      aulas/                  opcional — aulas com URL própria (ver abaixo)
+        <slug-da-aula>/
+          README.md           markdown da aula
+          slides.pdf          opcional — PDF só desta aula (ver `hasSlides` no manifest)
     <slug-do-modulo-2>/
       README.md
       slides.pdf
@@ -41,45 +45,63 @@ content/cursos/
 
 ### README.md (de cada módulo)
 - **Primeira linha:** heading nível 1 (`# Nome do módulo`). Esse título aparece na lista de módulos e no topo da página do módulo.
-- O restante descreve o módulo; pode mencionar que abaixo há o PDF dos slides.
+- O restante descreve o módulo. Se o módulo tiver `hasSlides: true` no manifest, o PDF **`slides.pdf`** na raiz do módulo aparece **acima** deste texto. Se os slides estiverem por aula, use `hasSlides` no módulo como `false` e `hasSlides: true` em cada aula (com `aulas/<slug>/slides.pdf`). Cadastre as aulas no `manifest.json` (`lessons`); a lista é renderizada pelo site.
 - Exemplo:
   ```markdown
   # Lógica de Programação
 
   Slides do módulo de **Lógica de Programação**: ...
-  Use os controles abaixo para navegar pelos slides.
+  Acima deste texto, use o visualizador para navegar pelos slides.
   ```
 
+### Aulas dentro do módulo (opcional)
+- Pastas: `aulas/<slug-da-aula>/README.md` (slug em minúsculas e hífen).
+- No **`manifest.json` do curso** (`content/cursos/<slug-do-curso>/manifest.json`), no objeto do módulo, inclua:
+  ```json
+  "lessons": [
+    {
+      "slug": "etapa-1-introducao",
+      "title": "Etapa 1: Introdução",
+      "hasSlides": true
+    }
+  ]
+  ```
+  - **`hasSlides` na aula:** se `true`, o site carrega `aulas/<slug>/slides.pdf` na página dessa aula.
+  - **`hasSlides` no módulo:** se `true` (e a aula não tiver `hasSlides: true`), usa-se o `slides.pdf` na raiz do módulo na página da aula (útil para um único PDF para todo o módulo).
+- **URL:** `/cursos/<curso>/<módulo>` — hub (slides do módulo só se `hasSlides` no módulo + README + lista de aulas).  
+  `/cursos/<curso>/<módulo>/<aula>` — slides da aula ou do módulo (conforme manifest) + README da aula.
+- Se `lessons` estiver ausente ou vazio, o módulo continua com uma única página (só `README.md` na raiz do módulo), como antes.
+
 ### slides.pdf
-- Nome fixo: **`slides.pdf`** dentro da pasta do módulo.
-- Se não existir, o módulo continua válido; a página do módulo mostra apenas o texto do README e uma mensagem de que não há PDF.
+- **Módulo:** nome fixo **`slides.pdf`** na pasta do módulo (quando `hasSlides` no módulo).
+- **Aula:** **`slides.pdf`** dentro de `aulas/<slug-da-aula>/` (quando `hasSlides` naquela aula).
+- Se não existir PDF onde o manifest indica, o visualizador mostra o estado de erro/placeholder correspondente.
 
 ## Slug
 - Use **minúsculas**, **números** e **hífen** (ex.: `1-primeiros-passos`, `logica-programacao`).
 - Evite espaços e caracteres especiais; o slug é usado na URL (`/cursos/<courseSlug>/<moduleSlug>`).
 
-## Manifest (lista de cursos no site)
-O site não lê as pastas diretamente; usa o arquivo **`content/cursos/manifest.json`**, que é **gerado** pelo script:
+## Manifest por curso (lista de módulos e aulas no site)
+Cada curso tem o seu **`content/cursos/<slug-do-curso>/manifest.json`** com `title` e `modules`.
 
-```bash
-npm run content:manifest
-```
+O site precisa ainda de **`content/cursos/index.json`**: só a lista **`slugs`** (nomes das pastas de curso). Sem isso o browser não consegue descobrir pastas sozinho. É um ficheiro pequeno (não duplica módulos nem aulas).
 
-- O script **escaneia** `content/cursos/` e, para cada pasta que tenha `curso.md`, lê o título (primeiro `#`) e descobre os módulos (subpastas com `README.md`).
-- **Sempre que criar ou alterar** um curso ou módulo (ou o título no `curso.md`), rode `npm run content:manifest` para atualizar o manifest.
-- Não edite `manifest.json` à mão de forma consistente; o script sobrescreve.
+- **index.json:** `{ "slugs": ["1-introducao-programacao", "..."] }` — acrescenta o slug quando criares um curso novo.
+- **manifest por curso:** `title`, `modules` (`slug`, `title`, `hasSlides`, opcionalmente `lessons`).
+- O **slug do curso** é o nome da pasta; não precisa repetir no `manifest.json`.
 
 ## Checklist para novo curso
 1. Criar pasta em `content/cursos/<slug-do-curso>/`.
-2. Criar `curso.md` com `# Nome do curso` na primeira linha e o restante do conteúdo.
-3. Para cada módulo, criar subpasta `<slug-do-modulo>/` com:
+2. Incluir o slug em **`content/cursos/index.json`** (`slugs`).
+3. Criar `curso.md` com `# Nome do curso` na primeira linha e o restante do conteúdo.
+4. Criar **`manifest.json`** nessa mesma pasta com `title` e `modules` (vazio ou já preenchido).
+5. Para cada módulo, criar subpasta `<slug-do-modulo>/` com:
    - `README.md` (primeira linha: `# Nome do módulo`).
    - `slides.pdf` (opcional).
-4. Rodar `npm run content:manifest`.
-5. Verificar no site: Home (seção Cursos) e `/cursos` devem listar o curso; `/cursos/<courseSlug>` e `/cursos/<courseSlug>/<moduleSlug>` devem abrir corretamente.
+6. Verificar no site: Home (seção Cursos) e `/cursos` devem listar o curso; `/cursos/<courseSlug>` e `/cursos/<courseSlug>/<moduleSlug>` devem abrir corretamente.
 
 ## Checklist para novo módulo em curso existente
 1. Criar subpasta em `content/cursos/<curso-existente>/<slug-do-modulo>/`.
 2. Criar `README.md` com `# Nome do módulo` e descrição.
 3. Colocar `slides.pdf` na mesma pasta (se houver).
-4. Rodar `npm run content:manifest`.
+4. Atualizar o **`manifest.json`** desse curso (novo item em `modules`).

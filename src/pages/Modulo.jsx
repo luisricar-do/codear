@@ -10,7 +10,7 @@ import {
   getModuleSlidesUrl,
 } from "../data/content";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 
 export function Modulo() {
   const { courseSlug, moduleSlug } = useParams();
@@ -48,6 +48,9 @@ export function Modulo() {
     course && moduleInfo?.hasSlides
       ? getModuleSlidesUrl(courseSlug, moduleSlug)
       : null;
+
+  const lessons = moduleInfo?.lessons ?? [];
+  const hasLessons = lessons.length > 0;
 
   if (error) {
     return (
@@ -93,21 +96,55 @@ export function Modulo() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              {markdown && (
+              {slidesUrl ? (
                 <div className="mb-8">
+                  <PDFViewer
+                    file={slidesUrl}
+                    storageKey={`codear-slides-${courseSlug}-${moduleSlug}`}
+                  />
+                </div>
+              ) : null}
+              {markdown && (
+                <div className={hasLessons ? "mb-10" : ""}>
                   <MarkdownContent content={markdown} />
                 </div>
               )}
-              <div className="mt-8">
-                <PDFViewer
-                  file={slidesUrl ?? undefined}
-                  storageKey={
-                    slidesUrl
-                      ? `codear-slides-${courseSlug}-${moduleSlug}`
-                      : undefined
-                  }
-                />
-              </div>
+
+              {hasLessons && (
+                <section aria-labelledby="aulas-heading">
+                  <h2
+                    id="aulas-heading"
+                    className="font-mono text-lg font-semibold text-[var(--color-text)] mb-4"
+                  >
+                    Aulas
+                  </h2>
+                  <ul className="space-y-3">
+                    {lessons.map((aula, i) => (
+                      <motion.li
+                        key={aula.slug}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <Link
+                          to={`/cursos/${courseSlug}/${moduleSlug}/${aula.slug}`}
+                          className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
+                        >
+                          <span className="flex items-center gap-3 min-w-0 flex-1">
+                            <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
+                            <span className="text-[var(--color-text)] leading-snug break-words">
+                              {aula.title}
+                            </span>
+                          </span>
+                          <span className="text-[var(--color-text-muted)] text-sm shrink-0">
+                            Abrir →
+                          </span>
+                        </Link>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </section>
+              )}
             </motion.div>
           )}
         </div>

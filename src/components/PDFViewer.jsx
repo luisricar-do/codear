@@ -133,11 +133,11 @@ export function PDFViewer({ file, storageKey }) {
     if (!document.fullscreenElement) {
       fullscreenRef.current.requestFullscreen?.().then(() => {
         setIsFullscreen(true);
-      }).catch(() => {});
+      }).catch(() => { });
     } else {
       document.exitFullscreen?.().then(() => {
         setIsFullscreen(false);
-      }).catch(() => {});
+      }).catch(() => { });
     }
   }, []);
 
@@ -342,11 +342,10 @@ export function PDFViewer({ file, storageKey }) {
                                   setPageNumber(n);
                                   setSlidePickerOpen(false);
                                 }}
-                                className={`w-full px-4 py-2 text-left text-sm transition ${
-                                  pageNumber === n
+                                className={`w-full px-4 py-2 text-left text-sm transition ${pageNumber === n
                                     ? "bg-[var(--color-primary)]/15 font-medium text-[var(--color-primary)]"
                                     : "text-[var(--color-text)] hover:bg-[var(--color-bg-elevated)]"
-                                }`}
+                                  }`}
                               >
                                 Slide {n}
                               </button>
@@ -399,11 +398,10 @@ export function PDFViewer({ file, storageKey }) {
                                 setPageNumber(n);
                                 setSlidePickerOpen(false);
                               }}
-                              className={`w-full px-4 py-2 text-left text-sm transition ${
-                                pageNumber === n
+                              className={`w-full px-4 py-2 text-left text-sm transition ${pageNumber === n
                                   ? "bg-white/20 font-medium text-white"
                                   : "text-white/80 hover:bg-white/10"
-                              }`}
+                                }`}
                             >
                               Slide {n}
                             </button>
@@ -426,11 +424,10 @@ export function PDFViewer({ file, storageKey }) {
                     aria-selected={pageNumber === n}
                     aria-label={`Ir para slide ${n}`}
                     onClick={() => setPageNumber(n)}
-                    className={`h-2 rounded-full transition-all ${
-                      pageNumber === n
+                    className={`h-2 rounded-full transition-all ${pageNumber === n
                         ? "w-6 bg-[var(--color-primary)]"
                         : "w-2 bg-[var(--color-border)] hover:bg-[var(--color-text-muted)]"
-                    }`}
+                      }`}
                   />
                 ))}
               </div>

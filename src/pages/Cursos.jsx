@@ -38,7 +38,7 @@ export function Cursos() {
 
           {error && (
             <div className="rounded-xl border border-amber-500/50 bg-amber-500/10 p-4 text-amber-200">
-              {error}. Verifique se <code className="rounded bg-black/30 px-1">public/content/cursos/manifest.json</code> existe (rode <code className="rounded bg-black/30 px-1">npm run content:manifest</code>).
+              {error}. Verifique <code className="rounded bg-black/30 px-1">content/cursos/index.json</code> (lista de slugs) e <code className="rounded bg-black/30 px-1">content/cursos/&lt;slug&gt;/manifest.json</code> por curso.
             </div>
           )}
 

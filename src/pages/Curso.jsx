@@ -111,9 +111,19 @@ export function Curso() {
                         to={`/cursos/${courseSlug}/${mod.slug}`}
                         className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
                       >
-                        <span className="flex items-center gap-3 min-w-0 flex-1">
-                          <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
-                          <span className="text-[var(--color-text)] leading-snug break-words">{mod.title}</span>
+                        <span className="flex flex-col gap-0.5 min-w-0 flex-1">
+                          <span className="flex items-center gap-3">
+                            <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
+                            <span className="text-[var(--color-text)] leading-snug break-words">
+                              {mod.title}
+                            </span>
+                          </span>
+                          {mod.lessons?.length ? (
+                            <span className="pl-7 text-xs text-[var(--color-text-muted)]">
+                              {mod.lessons.length}{" "}
+                              {mod.lessons.length === 1 ? "aula" : "aulas"}
+                            </span>
+                          ) : null}
                         </span>
                         <span className="text-[var(--color-text-muted)] text-sm shrink-0">Abrir →</span>
                       </Link>
@@ -143,11 +153,21 @@ export function Curso() {
                         to={`/cursos/${courseSlug}/${mod.slug}`}
                         className="flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
                       >
-                        <span className="flex items-center gap-3">
-                          <BookOpen className="h-4 w-4 text-[var(--color-primary)]" />
-                          <span className="text-[var(--color-text)]">{mod.title}</span>
+                        <span className="flex flex-col gap-0.5 min-w-0 flex-1">
+                          <span className="flex items-center gap-3">
+                            <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
+                            <span className="text-[var(--color-text)] leading-snug break-words">
+                              {mod.title}
+                            </span>
+                          </span>
+                          {mod.lessons?.length ? (
+                            <span className="pl-7 text-xs text-[var(--color-text-muted)]">
+                              {mod.lessons.length}{" "}
+                              {mod.lessons.length === 1 ? "aula" : "aulas"}
+                            </span>
+                          ) : null}
                         </span>
-                        <span className="text-[var(--color-text-muted)] text-sm">Abrir →</span>
+                        <span className="text-[var(--color-text-muted)] text-sm shrink-0">Abrir →</span>
                       </Link>
                     </motion.li>
                   ))}

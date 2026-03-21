@@ -1,0 +1,22 @@
+{
+  "title": "Introdução a Programação",
+  "modules": [
+    {
+      "slug": "modulo-1-introducao-ao-mundo-da-tecnologia",
+      "title": "Módulo 1 — Introdução ao mundo da tecnologia",
+      "hasSlides": true
+    },
+    {
+      "slug": "modulo-2-fluxogramas-e-algoritmos",
+      "title": "Módulo 2 — Fluxogramas e algoritmos",
+      "hasSlides": false,
+      "lessons": [
+        {
+          "slug": "etapa-1-o-mapa-do-codigo",
+          "title": "Etapa 1: O mapa do código (fluxogramas)",
+          "hasSlides": true
+        }
+      ]
+    }
+  ]
+}
