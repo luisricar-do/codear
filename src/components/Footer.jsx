@@ -17,12 +17,8 @@ export function Footer() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-          {/* Coluna 1: Marca */}
           <div>
-            <Link
-              to="/"
-              className="inline-block transition hover:opacity-90"
-            >
+            <Link to="/" className="inline-block transition hover:opacity-90">
               <img
                 src={`${import.meta.env.BASE_URL}assets/icone-grande.png`}
                 alt="Codear"
@@ -35,11 +31,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Coluna 2: Navegação */}
           <div>
-            <h3 className="font-mono font-bold text-[var(--color-text)]">
-              Navegação
-            </h3>
+            <h3 className="font-mono font-bold text-[var(--color-text)]">Navegação</h3>
             <ul className="mt-4 space-y-2">
               {navLinks.map(({ to, label }) => (
                 <li key={label}>
@@ -54,11 +47,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Coluna 3: Contato */}
           <div>
-            <h3 className="font-mono font-bold text-[var(--color-text)]">
-              Contato
-            </h3>
+            <h3 className="font-mono font-bold text-[var(--color-text)]">Contato</h3>
             <div className="mt-4 text-sm text-[var(--color-text-muted)]">
               <a
                 href="https://luisr.com.br"

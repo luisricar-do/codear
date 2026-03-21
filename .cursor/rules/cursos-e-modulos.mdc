@@ -1,6 +1,7 @@
 ---
 description: Como criar e cadastrar novos cursos e módulos no CODEAR
 globs: ["content/**/*.md", "content/**/manifest.json", "content/cursos/index.json"]
+alwaysApply: false
 ---
 
 # Cursos e módulos — Como criar e cadastrar

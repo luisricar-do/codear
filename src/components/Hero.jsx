@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion, useInView, useMotionValue, animate } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -23,13 +23,6 @@ const lineItem = {
   show: { opacity: 1, y: 0 },
 };
 
-const stats = [
-  { value: 500, suffix: "+", label: "Alunos formados" },
-  { value: 85, suffix: "%", label: "Taxa de conclusão" },
-  { value: 120, suffix: "+", label: "Mentores ativos" },
-  { value: 8, suffix: "", label: "Semanas de curso" },
-];
-
 const codeByLine = [
   [{ type: "comment", text: "# Sua jornada começa aqui" }],
   [
@@ -51,40 +44,21 @@ const codeByLine = [
   ],
 ];
 
-function CountUp({ value, suffix, inView }) {
-  const motionValue = useMotionValue(0);
-  const rounded = Math.round(motionValue.get());
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (!inView || hasAnimated.current) return;
-    hasAnimated.current = true;
-    const controls = animate(0, value, {
-      duration: 1.2,
-      ease: "easeOut",
-      onUpdate: (v) => motionValue.set(v),
-    });
-    return controls.stop;
-  }, [inView, value, motionValue]);
-
-  return (
-    <span>
-      {rounded}
-      {suffix}
-    </span>
-  );
-}
+const TOKEN_CLASSES = {
+  comment: "text-[var(--color-muted)]",
+  keyword: "text-blue-600",
+  string: "text-orange-600",
+  function: "text-violet-600",
+  plain: "text-[var(--color-text)]",
+};
 
 export function Hero() {
-  const statsRef = useRef(null);
   const codeRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
   const codeInView = useInView(codeRef, { once: true, margin: "-60px" });
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)] pt-28 pb-20">
       <div className="mx-auto max-w-4xl px-4">
-        {/* Barra de notificação */}
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -101,7 +75,6 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Título principal */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -125,7 +98,6 @@ export function Hero() {
             Uma jornada prática onde você aprende fazendo para poder ensinar.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             variants={item}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
@@ -150,35 +122,6 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Estatísticas 
-        <motion.div
-          ref={statsRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={statsInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mt-20 grid grid-cols-2 gap-8 sm:grid-cols-4"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={statsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="text-center"
-            >
-              <div className="font-mono text-3xl font-bold text-[var(--color-primary)] sm:text-4xl">
-                <CountUp value={stat.value} suffix={stat.suffix} inView={statsInView} />
-              </div>
-              <div className="mt-1 text-sm text-[var(--color-text-muted)]">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-        */}
-
-
-        {/* Editor de código */}
         <motion.div
           ref={codeRef}
           initial={{ opacity: 0, y: 40 }}
@@ -186,34 +129,27 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mt-20 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-lg"
         >
-          {/* Barra do editor */}
           <div className="flex items-center gap-2 border-b border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3">
             <div className="flex gap-1.5">
-              <motion.span
-                className="h-3 w-3 rounded-full bg-red-400"
-                initial={{ scale: 0 }}
-                animate={codeInView ? { scale: 1 } : {}}
-                transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
-              />
-              <motion.span
-                className="h-3 w-3 rounded-full bg-amber-400"
-                initial={{ scale: 0 }}
-                animate={codeInView ? { scale: 1 } : {}}
-                transition={{ delay: 0.25, type: "spring", stiffness: 400 }}
-              />
-              <motion.span
-                className="h-3 w-3 rounded-full bg-emerald-400"
-                initial={{ scale: 0 }}
-                animate={codeInView ? { scale: 1 } : {}}
-                transition={{ delay: 0.3, type: "spring", stiffness: 400 }}
-              />
+              {[
+                { color: "bg-red-400", delay: 0.2 },
+                { color: "bg-amber-400", delay: 0.25 },
+                { color: "bg-emerald-400", delay: 0.3 },
+              ].map(({ color, delay }) => (
+                <motion.span
+                  key={color}
+                  className={`h-3 w-3 rounded-full ${color}`}
+                  initial={{ scale: 0 }}
+                  animate={codeInView ? { scale: 1 } : {}}
+                  transition={{ delay, type: "spring", stiffness: 400 }}
+                />
+              ))}
             </div>
             <span className="font-mono text-sm text-[var(--color-text-muted)]">
               primeiro-projeto.py
             </span>
           </div>
 
-          {/* Código */}
           <div className="p-4 font-mono text-sm sm:text-base">
             <motion.div
               variants={container}
@@ -232,20 +168,7 @@ export function Hero() {
                     <span className="block h-4" aria-hidden />
                   ) : (
                     line.map((part, i) => (
-                      <span
-                        key={i}
-                        className={
-                          part.type === "comment"
-                            ? "text-[var(--color-muted)]"
-                            : part.type === "keyword"
-                              ? "text-blue-600"
-                              : part.type === "string"
-                                ? "text-orange-600"
-                                : part.type === "function"
-                                  ? "text-violet-600"
-                                  : "text-[var(--color-text)]"
-                        }
-                      >
+                      <span key={i} className={TOKEN_CLASSES[part.type] ?? TOKEN_CLASSES.plain}>
                         {part.text}
                       </span>
                     ))

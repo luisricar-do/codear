@@ -1,10 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-/**
- * Renderiza markdown com Tailwind Typography (prose). Tema alinhado ao site (cores, font-mono em títulos).
- * @param {{ content: string, className?: string }} props
- */
 export function MarkdownContent({ content, className = "" }) {
   return (
     <article

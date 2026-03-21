@@ -7,6 +7,50 @@ import { getManifest, getCourseMarkdown } from "../data/content";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, FileText, Loader2, List } from "lucide-react";
 
+function ModuleList({ modules, courseSlug }) {
+  return (
+    <ul className="space-y-3">
+      {modules.map((mod, i) => (
+        <motion.li
+          key={mod.slug}
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: i * 0.05 }}
+        >
+          <Link
+            to={`/cursos/${courseSlug}/${mod.slug}`}
+            className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
+          >
+            <span className="flex flex-col gap-0.5 min-w-0 flex-1">
+              <span className="flex items-center gap-3">
+                <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
+                <span className="text-[var(--color-text)] leading-snug break-words">
+                  {mod.title}
+                </span>
+              </span>
+              {mod.lessons?.length ? (
+                <span className="pl-7 text-xs text-[var(--color-text-muted)]">
+                  {mod.lessons.length} {mod.lessons.length === 1 ? "aula" : "aulas"}
+                </span>
+              ) : null}
+            </span>
+            <span className="text-[var(--color-text-muted)] text-sm shrink-0">Abrir →</span>
+          </Link>
+        </motion.li>
+      ))}
+    </ul>
+  );
+}
+
+function ModulesHeading() {
+  return (
+    <h2 className="font-mono text-lg font-semibold text-[var(--color-text)] mb-4 flex items-center gap-2">
+      <FileText className="h-5 w-5 text-[var(--color-primary)]" />
+      Módulos
+    </h2>
+  );
+}
+
 export function Curso() {
   const { courseSlug } = useParams();
   const navigate = useNavigate();
@@ -34,9 +78,8 @@ export function Curso() {
   const course = manifest?.courses?.[courseSlug];
   const modulesRef = useRef(null);
 
-  const scrollToModules = () => {
+  const scrollToModules = () =>
     modulesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   if (error) {
     return (
@@ -79,105 +122,30 @@ export function Curso() {
 
           {!loading && course && (
             <div className="lg:grid lg:grid-cols-[1fr_340px] lg:gap-14">
-              {/* Conteúdo do curso (markdown) */}
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="min-w-0 lg:pr-4"
               >
-                {markdown && (
-                  <MarkdownContent content={markdown} className="mb-10" />
-                )}
+                {markdown && <MarkdownContent content={markdown} className="mb-10" />}
               </motion.div>
 
-              {/* Sidebar: módulos (desktop) */}
               <aside
                 aria-label="Módulos do curso"
                 className="hidden lg:block lg:sticky lg:top-24 lg:self-start"
               >
-                <h2 className="font-mono text-lg font-semibold text-[var(--color-text)] mb-4 flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-[var(--color-primary)]" />
-                  Módulos
-                </h2>
-                <ul className="space-y-3">
-                  {course.modules.map((mod, i) => (
-                    <motion.li
-                      key={mod.slug}
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                      <Link
-                        to={`/cursos/${courseSlug}/${mod.slug}`}
-                        className="flex items-center justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
-                      >
-                        <span className="flex flex-col gap-0.5 min-w-0 flex-1">
-                          <span className="flex items-center gap-3">
-                            <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
-                            <span className="text-[var(--color-text)] leading-snug break-words">
-                              {mod.title}
-                            </span>
-                          </span>
-                          {mod.lessons?.length ? (
-                            <span className="pl-7 text-xs text-[var(--color-text-muted)]">
-                              {mod.lessons.length}{" "}
-                              {mod.lessons.length === 1 ? "aula" : "aulas"}
-                            </span>
-                          ) : null}
-                        </span>
-                        <span className="text-[var(--color-text-muted)] text-sm shrink-0">Abrir →</span>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
+                <ModulesHeading />
+                <ModuleList modules={course.modules} courseSlug={courseSlug} />
               </aside>
 
-              {/* Seção módulos (mobile): só aparece em telas pequenas, para o botão scrollar até aqui */}
-              <section
-                ref={modulesRef}
-                className="lg:hidden"
-              >
-                <h2 className="font-mono text-lg font-semibold text-[var(--color-text)] mb-4 flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-[var(--color-primary)]" />
-                  Módulos
-                </h2>
-                <ul className="space-y-3">
-                  {course.modules.map((mod, i) => (
-                    <motion.li
-                      key={mod.slug}
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                    >
-                      <Link
-                        to={`/cursos/${courseSlug}/${mod.slug}`}
-                        className="flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] px-4 py-3 shadow-sm transition hover:border-[var(--color-primary)]/50"
-                      >
-                        <span className="flex flex-col gap-0.5 min-w-0 flex-1">
-                          <span className="flex items-center gap-3">
-                            <BookOpen className="h-4 w-4 shrink-0 text-[var(--color-primary)]" />
-                            <span className="text-[var(--color-text)] leading-snug break-words">
-                              {mod.title}
-                            </span>
-                          </span>
-                          {mod.lessons?.length ? (
-                            <span className="pl-7 text-xs text-[var(--color-text-muted)]">
-                              {mod.lessons.length}{" "}
-                              {mod.lessons.length === 1 ? "aula" : "aulas"}
-                            </span>
-                          ) : null}
-                        </span>
-                        <span className="text-[var(--color-text-muted)] text-sm shrink-0">Abrir →</span>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
+              <section ref={modulesRef} className="lg:hidden">
+                <ModulesHeading />
+                <ModuleList modules={course.modules} courseSlug={courseSlug} />
               </section>
             </div>
           )}
         </div>
 
-        {/* Botão flutuante "Ver módulos" (só em mobile) */}
         {!loading && course && course.modules.length > 0 && (
           <div className="lg:hidden fixed bottom-6 left-4 right-4 z-10 flex justify-center">
             <motion.button

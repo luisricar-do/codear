@@ -19,88 +19,88 @@ Este curso inicia sua jornada no mundo da programação. Em 4 meses, você passa
 
 ---
 
-## Cronograma (4 meses)
+## Cronograma (4 meses · 16 semanas)
 
-### Mês 1 — Fundamentos e Contexto
+No site, o conteúdo é organizado em **módulos** e **aulas**. Use a tabela abaixo para saber o que estudar na plataforma em cada fase; o restante do cronograma (C e projeto) segue o plano semanal — será complementado com novos módulos conforme o curso evoluir.
 
-- **Semana 1 — O que é...?**
-  - O que é Computação (Hardware, Software) e o que é Programação.
-  - O papel do programador e o que é um algoritmo.
-  - *Atividade:* Observar exemplos de programas e criar um "algoritmo da vida real" (ex: "ir para a escola").
+| Fase no site | Semanas (referência) | O que cobrir |
+|--------------|----------------------|--------------|
+| **Módulo 1** — Introdução ao mundo da tecnologia | 1–4 | Slides + texto: algoritmo, lógica (E, OU, NÃO), decisões (SE… ENTÃO… SENÃO), hardware, software e internet. |
+| **Módulo 2** — Fluxogramas e algoritmos | 5–8 | Hub do módulo + **aulas** (ex.: *Etapa 1: O mapa do código*): fluxogramas, algoritmos, pseudocódigo e ponte para ferramentas como Portugol. |
+| *Módulos futuros (C e projeto)* | 9–16 | Programação em C e projeto final — material em expansão; siga as semanas abaixo como roteiro. |
 
-- **Semana 2 — Lógica de Predicados (Parte 1)**
-  - Introdução a proposições, conectivos lógicos e operadores (E, OU, NÃO).
+### Mês 1 — Fundamentos e contexto
+*Material no site: **Módulo 1**.*
+
+- **Semana 1 — O que é computação e programação?**
+  - Computação (hardware e software), o que é programar e o papel do programador.
+  - Conceito de **algoritmo** e exemplos do dia a dia.
+  - *Atividade:* Observar programas que você usa e escrever um algoritmo em linguagem natural (ex.: “como ir à escola”).
+
+- **Semana 2 — Lógica de predicados (parte 1)**
+  - Proposições, conectivos e operadores **E**, **OU**, **NÃO**.
   - *Atividade:* Jogos de verdadeiro/falso e mini desafios de lógica.
 
-- **Semana 3 — Lógica de Predicados (Parte 2)**
-  - Aplicação da lógica em situações reais e condições compostas.
-  - *Atividade:* Exercícios em grupo com "Se... Então..." (ex: "Se estiver sol E for fim de semana, ENTÃO vou à praia").
+- **Semana 3 — Lógica de predicados (parte 2)**
+  - Condições compostas e “SE… ENTÃO…” aplicados a situações reais.
+  - *Atividade:* Em grupo, montar regras do tipo: “SE estiver sol **E** for fim de semana, **ENTÃO** vou à praia”.
 
-- **Semana 4 — O Ecossistema da Computação**
-  - Conceitos de Sistemas Operacionais (de forma leve).
-  - O que é rede e como a internet funciona (o "contexto" onde os programas vivem).
-  - *Atividade:* Identificar partes do computador e desenhar um mapa de como um site chega até você.
+- **Semana 4 — Ecossistema da computação**
+  - Visão leve de sistemas operacionais; rede e **como a internet funciona** (onde os programas “vivem”).
+  - *Atividade:* Identificar partes do computador e esboçar o caminho de um site até o seu navegador.
 
-### Mês 2 — Estruturação do Pensamento Computacional
+### Mês 2 — Pensamento computacional
+*Material no site: **Módulo 2** (e aulas vinculadas).*
 
-- **Semana 5 — Algoritmos e Fluxogramas (Parte 1)**
-  - O que é um algoritmo e como escrever um passo a passo eficiente.
-  - Símbolos básicos de fluxograma (início/fim, processo, entrada/saída).
-  - *Atividade:* Criar algoritmos e fluxogramas simples para tarefas cotidianas.
+- **Semana 5 — Algoritmos e fluxogramas (parte 1)**
+  - Algoritmo como sequência clara e eficiente; símbolos básicos (início/fim, processo, entrada/saída).
+  - *Atividade:* Algoritmos e fluxogramas simples para tarefas do cotidiano.
 
-- **Semana 6 — Fluxogramas (Parte 2) e Pseudocódigo**
-  - Símbolos de Decisão (if/else) em fluxogramas.
-  - Tradução direta do fluxograma para o Pseudocódigo.
-  - *Atividade:* Desenhar fluxogramas de decisão (ex: "aprovado/reprovado") e escrevê-los em pseudocódigo.
+- **Semana 6 — Fluxogramas com decisão e pseudocódigo**
+  - Decisão (**if/else**) no fluxograma; passar do desenho para **pseudocódigo**.
+  - *Atividade:* Fluxograma de situações binárias (ex.: aprovado/reprovado) e a mesma lógica em pseudocódigo.
 
-- **Semana 7 — A Ponte: Programação Visual (Scratch ou Blockly)**
-  - Antes da sintaxe do C: brincar com if e loops (repetições) de forma visual.
-  - *Atividade:* Criar uma pequena animação ou jogo simples usando blocos lógicos.
+- **Semana 7 — Programação visual (Scratch ou Blockly)**
+  - **If** e **laços** com blocos, antes da sintaxe do C.
+  - *Atividade:* Pequena animação ou jogo com blocos lógicos.
 
-- **Semana 8 — Revisão Lógica e Preparação para C**
-  - Revisão de pseudocódigo com loops (ENQUANTO/PARA).
-  - Como fluxograma/pseudocódigo se traduz em C (visão geral, sem cobrar sintaxe).
-  - *Atividade:* Fluxogramas e pseudocódigos de jogos simples (ex: "adivinhe o número").
+- **Semana 8 — Revisão e ponte para C**
+  - Pseudocódigo com **ENQUANTO** / **PARA**; visão geral de como isso vira C (sem cobrar sintaxe ainda).
+  - *Atividade:* Fluxograma e pseudocódigo de um jogo simples (ex.: “adivinhe o número”).
 
-### Mês 3 — Programação Estruturada em C (Parte 1)
+### Mês 3 — Programação estruturada em C (parte 1)
+*Conteúdo presencial / futuros módulos na plataforma.*
 
-- **Semana 9 — "Hello, C!" (O Ambiente)**
-  - Sintaxe básica, compilação e execução.
-  - Estrutura mínima: `#include`, `main()`, `{ }`, `;`.
-  - Comandos de saída (`printf`).
-  - *Atividade:* Primeiro programa "Hello, World!" em C e variações (imprimir o nome, etc.).
+- **Semana 9 — “Hello, C!” (ambiente)**
+  - Sintaxe mínima, compilar e executar: `#include`, `main()`, `{ }`, `;`, `printf`.
+  - *Atividade:* “Hello, World!” e variações (ex.: imprimir seu nome).
 
-- **Semana 10 — Variáveis, Tipos de Dados e Entradas**
-  - Armazenar informações (`int`, `float`, `char`).
-  - Comandos de entrada (`scanf`).
-  - *Atividade:* Programas para soma, média e conversão de valores (dados digitados pelo usuário).
+- **Semana 10 — Variáveis, tipos e entrada**
+  - `int`, `float`, `char`; leitura com `scanf`.
+  - *Atividade:* Programas de soma, média e conversões com dados digitados.
 
-- **Semana 11 — Estruturas Condicionais (if / else)**
-  - Tomar decisões no código: `if`, `else`, `else if` e operadores lógicos (`&&`, `||`, `!`).
-  - *Atividade:* Programa de aprovação de aluno, cálculo de IMC ou calculadora simples.
+- **Semana 11 — Condicionais (`if` / `else`)**
+  - `if`, `else`, `else if`; operadores `&&`, `||`, `!`.
+  - *Atividade:* Aprovação por nota, IMC ou calculadora com menus simples.
 
-- **Semana 12 — Estruturas de Repetição (Parte 1: while)**
-  - Uso do `while`, contadores e acumuladores.
-  - *Atividade:* Contagem, "adivinhe o número" em C, menus simples.
+- **Semana 12 — Repetição com `while`**
+  - `while`, contadores e acumuladores.
+  - *Atividade:* Contagens, “adivinhe o número” em C, menu em loop.
 
-### Mês 4 — Consolidação e Projeto Final
+### Mês 4 — Consolidação e projeto final
 
-- **Semana 13 — Estruturas de Repetição (Parte 2: for) e Funções (Intro)**
-  - O `for` como repetição estruturada.
-  - Introdução a funções: organizar e reutilizar código.
-  - *Atividade:* Tabuada com `for` e funções simples (ex: `soma(a, b)`).
+- **Semana 13 — `for` e introdução a funções**
+  - Laço `for`; ideia de **função** para organizar e reutilizar código.
+  - *Atividade:* Tabuada com `for` e funções simples (ex.: `soma(a, b)`).
 
-- **Semana 14 — Vetores (Arrays) e Funções (Avançado)**
-  - Múltiplos dados (listas, ex: notas de alunos).
-  - Passagem de parâmetros para funções.
-  - *Atividade:* Registrar notas de uma turma e calcular a média. Apresentação do enunciado do projeto final.
+- **Semana 14 — Vetores e funções (aprofundamento)**
+  - Arrays; parâmetros em funções.
+  - *Atividade:* Notas de uma turma e média; receber o **enunciado do projeto final**.
 
-- **Semana 15 — Oficina de Projeto Final e Revisão Geral**
-  - Definição e início do projeto final (Sistema de cadastro, quiz interativo ou jogo em C).
-  - Revisão guiada de todos os conceitos (da lógica aos vetores).
-  - *Atividade:* Mentoria, dúvidas e desenvolvimento do projeto.
+- **Semana 15 — Oficina do projeto e revisão**
+  - Projeto final (cadastro, quiz ou jogo em C); revisão da lógica ao C.
+  - *Atividade:* Mentoria, dúvidas e desenvolvimento.
 
-- **Semana 16 — Apresentação dos Projetos**
-  - Apresentação do projeto final e "O que eu aprendi".
-  - Próximos passos (próximas trilhas).
-  - *Atividade:* Confraternização e feedback.
+- **Semana 16 — Apresentações e próximos passos**
+  - Apresentar o projeto e reflexão “o que aprendi”; encaminhamento para próximas trilhas.
+  - *Atividade:* Feedback e confraternização.

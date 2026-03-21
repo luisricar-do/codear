@@ -1,6 +1,7 @@
 ---
 description: Regras de programação do projeto CODEAR (React, Vite, Tailwind)
 globs: ["src/**/*.jsx", "src/**/*.js", "src/**/*.css", "vite.config.js", "*.config.js"]
+alwaysApply: false
 ---
 
 # Regras de programação — CODEAR
@@ -19,43 +20,61 @@ globs: ["src/**/*.jsx", "src/**/*.js", "src/**/*.css", "vite.config.js", "*.conf
 
 ### React / JSX
 - Usar **function components** (não classes).
-- Nomes de componentes em **PascalCase**; um componente por arquivo quando fizer sentido.
+- Nomes de componentes em **PascalCase**; exportar com `export function`, não `export default`.
 - Manter imports no topo do arquivo (evitar imports inline).
 - Props de componentes: preferir desestruturação quando há mais de uma prop.
 - Para rotas dinâmicas, usar `useParams()` do React Router; para navegação programática, `useNavigate()`.
+- **Eliminar duplicação**: se o mesmo JSX aparece em dois contextos (ex.: desktop vs. mobile), extrair um subcomponente. Ver `ModuleList` em `Curso.jsx` como exemplo.
+- **Preferir lookup objects** em vez de chains `if/else` ou ternários aninhados para mapear tipos a valores:
+  ```jsx
+  // ✅ BOM
+  const TOKEN_CLASSES = { comment: "text-gray-400", keyword: "text-blue-600" };
+  <span className={TOKEN_CLASSES[part.type] ?? TOKEN_CLASSES.plain}>
+
+  // ❌ EVITAR
+  part.type === "comment" ? "..." : part.type === "keyword" ? "..." : "..."
+  ```
+
+### Comentários
+- **Não** adicionar comentários que apenas descrevem o que o código faz (ex.: `// busca o manifest`, `// controla o estado`).
+- **Não** usar JSDoc (`@param`, `@returns`, `@typedef`) em arquivos `.js`/`.jsx` — a assinatura e os nomes já comunicam a intenção.
+- **Não** deixar código comentado no repositório — remover blocos `/* ... */` de código inativo.
+- Comentários são bem-vindos **apenas** para explicar decisões não-óbvias, restrições ou trade-offs.
 
 ### Estilização (Tailwind)
 - Preferir **variáveis CSS do tema** definidas em `src/index.css`:
   - `--color-primary`, `--color-primary-hover`
   - `--color-bg`, `--color-bg-elevated`, `--color-bg-card`
-  - `--color-border`, `--color-muted`
-  - `--color-text`, `--color-text-muted`
-- Para texto principal usar `text-[var(--color-text)]`; para secundário `text-[var(--color-text-muted)]`.
-- Cards e blocos elevados: `bg-[var(--color-bg-card)]` com `shadow-sm` e `border border-[var(--color-border)]`.
-- Títulos em monospace: `font-mono` (já configurado para h1/h2/h3 no base).
+  - `--color-border`, `--color-text`, `--color-text-muted`
+- Para texto principal: `text-[var(--color-text)]`; secundário: `text-[var(--color-text-muted)]`.
+- Cards: `bg-[var(--color-bg-card)] shadow-sm border border-[var(--color-border)]`.
+- Títulos em monospace: `font-mono`.
 - Manter o tema **claro** (fundo claro, texto escuro).
 
 ### Animações (Framer Motion)
-- Usar `motion` para elementos que entram na tela (ex.: `motion.section`, `motion.div`).
-- Preferir `initial`, `animate`, `whileInView` e `viewport={{ once: true }}` para entradas suaves.
-- Evitar animações pesadas ou muitas simultâneas; usar `transition={{ delay }}` para escalonar.
+- Usar `motion` para elementos que entram na tela.
+- Preferir `initial`, `animate`, `whileInView` com `viewport={{ once: true }}`.
+- Usar `transition={{ delay: i * 0.05 }}` para escalonar listas.
+- Evitar animações pesadas ou simultâneas em excesso.
 
 ### Dados e conteúdo
-- Conteúdo dos cursos fica em **`content/cursos/`** (raiz do projeto), **não** em `public/`.
-- Acesso a cursos/módulos via `src/data/content.js`: `getManifest()`, `getCourseMarkdown()`, `getModuleMarkdown()`, `getModuleSlidesUrl()`.
-- O app espera que o conteúdo seja servido em `/content/` (plugin Vite em `vite-plugin-content.js` em dev e cópia no build).
+- Funções de acesso em `src/data/content.js`: `getManifest()`, `getCourseMarkdown()`, `getModuleMarkdown()`, `getLessonMarkdown()`, `getModuleSlidesUrl()`, `getLessonSlidesUrl()`.
+- Conteúdo em `content/cursos/` (raiz), **não** em `public/`.
+- O conteúdo é servido em `/content/` via `vite-plugin-content.js`.
 
 ### Estrutura de pastas (src)
-- `src/components/` — componentes reutilizáveis (Header, Footer, PDFViewer, MarkdownContent, etc.).
-- `src/pages/` — páginas por rota (Home, Cursos, Curso, Modulo).
-- `src/data/` — funções de acesso a dados (content.js).
+- `src/components/` — componentes reutilizáveis.
+- `src/pages/` — páginas por rota; wrapping de remount via `AulaRoute` pattern (chave composta de params).
+- `src/data/` — funções de acesso a dados.
 
 ### Rotas
-- `/` — Home (landing)
+- `/` — Home
 - `/cursos` — Lista de cursos
-- `/cursos/:courseSlug` — Página do curso (curso.md + lista de módulos)
-- `/cursos/:courseSlug/:moduleSlug` — Página do módulo (README.md + PDF de slides)
+- `/cursos/:courseSlug` — Página do curso
+- `/cursos/:courseSlug/:moduleSlug` — Módulo (PDF + README + lista de aulas)
+- `/cursos/:courseSlug/:moduleSlug/:lessonSlug` — Aula (via `AulaRoute`)
 
 ### Qualidade
 - Respeitar o ESLint do projeto.
-- Manter acessibilidade básica: `aria-label` em botões só de ícone, textos alternativos quando fizer sentido.
+- `aria-label` em botões só de ícone; `alt` descritivo em imagens.
+- Sempre usar `type="button"` em `<button>` fora de formulários.
