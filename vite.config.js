@@ -27,4 +27,20 @@ function spaFallback404() {
 export default defineConfig({
   base: "/",
   plugins: [react(), tailwindcss(), contentPlugin(), spaFallback404()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("react-pdf") || id.includes("pdfjs-dist")) return "pdf";
+          if (id.includes("framer-motion")) return "motion";
+          if (id.includes("react-markdown") || id.includes("remark") || id.includes("micromark"))
+            return "markdown";
+          if (id.includes("react-dom") || id.includes("/react/") || id.includes("scheduler"))
+            return "react-vendor";
+          if (id.includes("react-router")) return "router";
+        },
+      },
+    },
+  },
 });
