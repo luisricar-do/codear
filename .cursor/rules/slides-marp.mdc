@@ -1,0 +1,79 @@
+---
+description: Slides didáticos CODEAR com Marp (Markdown → PDF para content/cursos)
+globs:
+  - "tools/slides/components/**"
+  - "tools/slides/**/*.md"
+  - "tools/slides/theme/**"
+  - "tools/slides/templates/**"
+  - "tools/slides/icons/**"
+  - "tools/slides/registry.json"
+  - "tools/slides/sources/**"
+  - "tools/slides/scripts/slides-cli.mjs"
+  - "tools/slides/scripts/icons-build.mjs"
+alwaysApply: false
+---
+
+# Slides — Marp (CODEAR)
+
+## Objetivo
+
+Gerar **`slides.pdf`** consumido pelo site ([`PDFViewer`](src/components/PDFViewer.jsx)) a partir de Markdown com [Marp](https://marp.app/), **alinhado ao template de layout** em [`tools/slides/templates/slides-layout-reference.html`](tools/slides/templates/slides-layout-reference.html) e, em segundo plano, à identidade do site ([`src/index.css`](src/index.css), [`index.html`](index.html)).
+
+## Componentes (workflow recomendado)
+
+- **Pasta:** [`tools/slides/components/`](tools/slides/components/) — fragmentos Marp em [`marp/`](tools/slides/components/marp/) espelham as variantes do HTML de referência; [`registry.json`](tools/slides/components/registry.json) mapeia `slide--*` → ficheiro. Compor o deck **copiando** estes blocos (ver [`README.md`](tools/slides/components/README.md)), não reinventar classes ou markup.
+
+## Template de layout (referência visual)
+
+- **Ficheiro:** [`tools/slides/templates/slides-layout-reference.html`](tools/slides/templates/slides-layout-reference.html) — abrir no browser; não substitui o Marp, define **estrutura, centragem, tipografia e uso da logo** que os componentes e os decks devem replicar no PDF.
+- **Tipografia:** títulos **Fira Code**; corpo **JetBrains Sans** (importar no tema ou por `<style>` scoped Marp se necessário).
+- **Logo:** [`public/assets/icone-grande.png`](public/assets/icone-grande.png); a partir de `tools/slides/decks/*.md` usar `../../../public/assets/icone-grande.png` com `--allow-local-files`.
+- **Variantes** a espelhar (classes no HTML = guia para HTML por slide ou classes Marp custom): `slide--title`, `slide--content`, `slide--section`, `slide--agenda`, `slide--quote`, `slide--dark`, `slide--split`, `slide--closing`.
+- **Regra:** conteúdo principal **centrado** no slide (eixo vertical e horizontal), logo no canto onde o template o mostra; **sem barra de header escura** nos slides de conteúdo (conforme referência).
+
+## Ícones
+
+- **Pasta:** [`tools/slides/icons/`](tools/slides/icons/) — SVG estáticos (Lucide), lista em [`manifest.json`](tools/slides/icons/manifest.json), índice em [`index.json`](tools/slides/icons/index.json).
+- **Deck:** a partir de `decks/*.md`, usar `../icons/svg/<nome>.svg` com `--allow-local-files` (ver [`icons/README.md`](tools/slides/icons/README.md)).
+- **Regenerar:** `npm run slides:icons` na raiz após editar `manifest.json`.
+
+## Onde vive o toolchain
+
+- **Decks manuais:** [`tools/slides/decks/`](tools/slides/decks/) — `.md` editável (exclui `decks/_generated/`, gerado e ignorado no Git).
+- **Decks gerados:** [`tools/slides/registry.json`](tools/slides/registry.json) + `tools/slides/sources/<deckId>/` (`mermaid/`, `generate.mjs`) → `decks/_generated/<deckId>.md`. CLI: `npm run slides:build -- <deckId>` na raiz do repo.
+- **Tema:** [`tools/slides/theme/codear.css`](tools/slides/theme/codear.css) — tema `codear` (`/* @theme codear */`); evoluir o CSS para convergir com o template HTML quando houver divergência.
+- **Markdown mínimo:** [`tools/slides/decks/TEMPLATE.md`](tools/slides/decks/TEMPLATE.md) — front matter e separadores; o detalhe visual está no HTML acima.
+
+## Sintaxe do deck
+
+- Front matter Marp no topo: `marp: true`, `theme: codear`, `size: 16:9`, `paginate`, `header` / `footer` opcionais.
+- Separador entre slides: linha com só `---` (três hífens).
+- **Não** confundir com `README.md` didático em `content/cursos/` — são formatos diferentes; o deck é só para exportar PDF.
+
+## Exportar para `content/`
+
+O script corre com **cwd** em `tools/slides` (via `npm run slides:export` na raiz). Caminhos relativos ao deck e ao PDF são relativos a essa pasta.
+
+Exemplo (módulo):
+
+```bash
+npm run slides:export -- decks/nome-do-deck.md --theme theme/codear.css --allow-local-files --pdf -o ../../content/cursos/<slug-curso>/<slug-modulo>/slides.pdf
+```
+
+Exemplo (aula com slides próprios):
+
+```bash
+npm run slides:export -- decks/nome-do-deck.md --theme theme/codear.css --allow-local-files --pdf -o ../../content/cursos/<slug-curso>/<slug-modulo>/aulas/<slug-aula>/slides.pdf
+```
+
+- **`--allow-local-files`:** necessário se o deck referenciar imagens locais (ex.: `![](../assets/foo.png)`).
+- **`--no-stdin`:** já incluído no script `pdf` de `tools/slides` para evitar o Marp ficar à espera de stdin em ambientes automatizados.
+
+## Cadastro no site
+
+Garantir `hasSlides: true` no sítio certo do [`manifest.json`](content/cursos/) do curso (módulo e/ou entrada em `lessons`). Detalhes de pastas e slugs: regra **[cursos-e-modulos.mdc](.cursor/rules/cursos-e-modulos.mdc)**.
+
+## Referência visual extra
+
+- **Principal:** [`tools/slides/templates/slides-layout-reference.html`](tools/slides/templates/slides-layout-reference.html).
+- **Complementar:** `tools/slides/reference/` para screenshots ou notas; skill **slides-codear** (`.cursor/skills/slides-codear/SKILL.md`).

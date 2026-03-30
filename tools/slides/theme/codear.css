@@ -1,0 +1,837 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+/* @theme codear — alinhado a tools/slides/templates/slides-layout-reference.html */
+
+@import "default";
+
+:root {
+  color-scheme: light;
+  --font-title: "Fira Code", ui-monospace, monospace;
+  --font-body: "JetBrains Sans", ui-sans-serif, system-ui, sans-serif;
+  --codear-navy: #002d40;
+  --codear-orange: #d68b1e;
+  --codear-orange-bright: #e28c2e;
+  --codear-accent-warm: #c27803;
+  --codear-ink: #0f172a;
+  --codear-heading: #0a0a0a;
+  --codear-muted: #475569;
+  --codear-paper: #ffffff;
+  --codear-bg: #f7f7f7;
+  --codear-bg-elevated: #efefef;
+  --codear-card: #ffffff;
+  --codear-border: #e2e8f0;
+  --codear-squiggle: #0a0a0a;
+  /* retrocompat / atalhos */
+  --codear-primary: var(--codear-orange);
+  --codear-primary-hover: #b87718;
+  --codear-text: var(--codear-ink);
+  --codear-text-muted: var(--codear-muted);
+  /* pre (referência .slide--content pre) */
+  --code-editor-bg: #1e1e1e;
+  --code-editor-fg: #d4d4d4;
+}
+
+section {
+  background-color: var(--codear-bg) !important;
+  background-image: none !important;
+  color: var(--codear-text);
+  font-family: var(--font-body);
+  font-size: 28px;
+  line-height: 1.45;
+}
+
+/*
+ * Marp (inline SVG) aplica ao slide um seletor mais específico que só `section`,
+ * com background-color: var(--bgColor-default) (tema default / GitHub).
+ * Duplicar regras críticas em foreignObject>section.
+ */
+div#\:\$p>svg>foreignObject>section {
+  background-color: var(--codear-bg) !important;
+  background-image: none !important;
+  color: var(--codear-text) !important;
+  font-family: var(--font-body) !important;
+  font-size: 28px !important;
+  line-height: 1.45 !important;
+}
+
+/*
+ * Capa — usar só .title / .lead (nunca section:first-of-type: no Marp cada slide é
+ * um SVG e :first-of-type volta a aplicar-se a todos os slides).
+ */
+section.lead,
+section.title {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+  box-sizing: border-box !important;
+}
+
+div#\:\$p>svg>foreignObject>section.lead,
+div#\:\$p>svg>foreignObject>section.title {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+  box-sizing: border-box !important;
+}
+
+section.lead h1,
+section.title h1,
+div#\:\$p>svg>foreignObject>section.lead h1,
+div#\:\$p>svg>foreignObject>section.title h1 {
+  color: var(--codear-navy) !important;
+  font-family: var(--font-title) !important;
+  font-weight: 600 !important;
+  font-size: 2.05em !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.2 !important;
+  max-width: 28ch;
+  margin-block: 0 0.35em !important;
+}
+
+/* Subtítulo da capa (laranja, maiúsculas) — só após h1 em .title / .lead */
+section.lead p:first-of-type,
+section.title p:first-of-type,
+div#\:\$p>svg>foreignObject>section.lead p:first-of-type,
+div#\:\$p>svg>foreignObject>section.title p:first-of-type {
+  margin: 0 !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.92em !important;
+  font-weight: 500 !important;
+  color: var(--codear-orange) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+
+section.lead p:first-of-type strong,
+section.title p:first-of-type strong,
+div#\:\$p>svg>foreignObject>section.lead p:first-of-type strong,
+div#\:\$p>svg>foreignObject>section.title p:first-of-type strong {
+  color: var(--codear-orange) !important;
+  font-weight: 600 !important;
+}
+
+/* ——— Secção (capítulo) — slide--section ——— */
+section.section {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+div#\:\$p>svg>foreignObject>section.section {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+section.section h1,
+section.section h2,
+div#\:\$p>svg>foreignObject>section.section h1,
+div#\:\$p>svg>foreignObject>section.section h2 {
+  color: var(--codear-navy) !important;
+  font-family: var(--font-title) !important;
+  font-weight: 700 !important;
+  font-size: 2.35em !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.12 !important;
+}
+
+section.section h2::before,
+div#\:\$p>svg>foreignObject>section.section h2::before {
+  content: none !important;
+}
+
+section.section p,
+div#\:\$p>svg>foreignObject>section.section p {
+  color: var(--codear-muted) !important;
+  font-size: 0.82em !important;
+  max-width: 36ch;
+}
+
+/* ——— Citação — slide--quote ——— */
+section.quote {
+  background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 10% 12% !important;
+}
+
+div#\:\$p>svg>foreignObject>section.quote {
+  background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 10% 12% !important;
+}
+
+section.quote h1,
+section.quote h2,
+div#\:\$p>svg>foreignObject>section.quote h1,
+div#\:\$p>svg>foreignObject>section.quote h2 {
+  color: var(--codear-navy) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  font-size: 1.35em !important;
+  line-height: 1.42 !important;
+}
+
+/* ——— Fundo escuro — slide--dark ——— */
+section.dark,
+section.invert {
+  background-color: #0c0c0c !important;
+  background-image: none !important;
+  color: #f1f5f9 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+div#\:\$p>svg>foreignObject>section.dark,
+div#\:\$p>svg>foreignObject>section.invert {
+  background-color: #0c0c0c !important;
+  background-image: none !important;
+  color: #f1f5f9 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+section.dark h1,
+section.dark h2,
+section.dark h3,
+section.invert h1,
+section.invert h2,
+section.invert h3,
+div#\:\$p>svg>foreignObject>section.dark h1,
+div#\:\$p>svg>foreignObject>section.dark h2,
+div#\:\$p>svg>foreignObject>section.dark h3,
+div#\:\$p>svg>foreignObject>section.invert h1,
+div#\:\$p>svg>foreignObject>section.invert h2,
+div#\:\$p>svg>foreignObject>section.invert h3 {
+  color: #f8fafc !important;
+}
+
+section.dark a,
+section.invert a,
+div#\:\$p>svg>foreignObject>section.dark a,
+div#\:\$p>svg>foreignObject>section.invert a {
+  color: var(--codear-orange-bright) !important;
+}
+
+section.dark strong,
+section.invert strong,
+div#\:\$p>svg>foreignObject>section.dark strong,
+div#\:\$p>svg>foreignObject>section.invert strong {
+  color: var(--codear-orange-bright) !important;
+}
+
+section.dark p,
+section.invert p,
+div#\:\$p>svg>foreignObject>section.dark p,
+div#\:\$p>svg>foreignObject>section.invert p {
+  color: #cbd5e1 !important;
+}
+
+/* ——— Encerramento — slide--closing ——— */
+section.closing {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+div#\:\$p>svg>foreignObject>section.closing {
+  background-color: var(--codear-paper) !important;
+  background-image: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 5% 8% 12% !important;
+}
+
+section.closing h1,
+section.closing h2,
+div#\:\$p>svg>foreignObject>section.closing h1,
+div#\:\$p>svg>foreignObject>section.closing h2 {
+  color: var(--codear-navy) !important;
+}
+
+section.closing p,
+div#\:\$p>svg>foreignObject>section.closing p {
+  color: var(--codear-muted) !important;
+}
+
+/* agenda / split: mesmo fundo #f7f7f7 que o slide de conteúdo (explícito para _class) */
+section.agenda,
+section.split {
+  background-color: var(--codear-bg) !important;
+  position: relative !important;
+}
+
+div#\:\$p>svg>foreignObject>section.agenda,
+div#\:\$p>svg>foreignObject>section.split {
+  background-color: var(--codear-bg) !important;
+  position: relative !important;
+}
+
+/* Comparativo — espelha .slide--split* do slides-layout-reference.html */
+section.split .codear-split-grid,
+div#\:\$p>svg>foreignObject>section.split .codear-split-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 1.15em 1.75em !important;
+  width: 100% !important;
+  text-align: left !important;
+  margin-top: 0.35em !important;
+  align-items: start !important;
+  box-sizing: border-box !important;
+}
+
+section.split .codear-split-col-title,
+div#\:\$p>svg>foreignObject>section.split .codear-split-col-title {
+  font-family: var(--font-body) !important;
+  font-size: 0.78em !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--codear-orange) !important;
+  margin: 0 0 0.4em !important;
+}
+
+section.split .codear-split-col-body,
+div#\:\$p>svg>foreignObject>section.split .codear-split-col-body {
+  margin: 0 !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.92em !important;
+  line-height: 1.42 !important;
+  color: var(--codear-heading) !important;
+}
+
+section.split img.codear-split-logo,
+div#\:\$p>svg>foreignObject>section.split img.codear-split-logo {
+  position: absolute !important;
+  right: 3.2% !important;
+  bottom: 3.6% !important;
+  max-width: 120px !important;
+  max-height: 52px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+/* Lista de conteúdo (ref. .slide--content__list no HTML) — corpo à esquerda, coluna estreita */
+section.agenda ul.codear-content-list,
+div#\:\$p>svg>foreignObject>section.agenda ul.codear-content-list {
+  margin: 0.4em auto 0 !important;
+  padding-left: 1.35em !important;
+  padding-right: 0.5em !important;
+  max-width: min(38rem, 88%) !important;
+  text-align: left !important;
+  list-style: disc !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.88em !important;
+  line-height: 1.48 !important;
+  color: var(--codear-heading) !important;
+  box-sizing: border-box !important;
+}
+
+section.agenda ul.codear-content-list li,
+div#\:\$p>svg>foreignObject>section.agenda ul.codear-content-list li {
+  margin-bottom: 0.55em !important;
+}
+
+section.agenda ul.codear-content-list li::marker,
+div#\:\$p>svg>foreignObject>section.agenda ul.codear-content-list li::marker {
+  color: var(--codear-heading) !important;
+}
+
+section.agenda ul.codear-content-list code,
+div#\:\$p>svg>foreignObject>section.agenda ul.codear-content-list code {
+  font-size: 0.95em !important;
+  padding: 0.08em 0.38em !important;
+}
+
+section.agenda p.codear-slide-lead,
+div#\:\$p>svg>foreignObject>section.agenda p.codear-slide-lead {
+  margin: 0 auto 0.5em !important;
+  max-width: min(34rem, 86%) !important;
+  text-align: center !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.82em !important;
+  font-weight: 500 !important;
+  color: var(--codear-muted) !important;
+  line-height: 1.42 !important;
+}
+
+/*
+ * Imagens no slide: a regra genérica NÃO aplica a marcas (.codear-corner-logo, etc.),
+ * senão o Marp (foreignObject) força max-width 88% e o ícone grande vira “cartaz”.
+ */
+section img:not(.codear-corner-logo):not(.codear-title-logo):not(.codear-closing-logo):not(.codear-split-logo):not(.codear-icon):not(.codear-flowchart) {
+  max-width: 88% !important;
+  max-height: 340px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0.2em auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+div#\:\$p>svg>foreignObject>section img:not(.codear-corner-logo):not(.codear-title-logo):not(.codear-closing-logo):not(.codear-split-logo):not(.codear-icon):not(.codear-flowchart) {
+  max-width: 88% !important;
+  max-height: 340px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0.2em auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+/* Marca canto — sempre pequena (alinhado ao template HTML) */
+section img.codear-corner-logo,
+div#\:\$p>svg>foreignObject>section img.codear-corner-logo {
+  position: absolute !important;
+  right: 3.2% !important;
+  bottom: 3.6% !important;
+  max-width: 72px !important;
+  max-height: 72px !important;
+  width: 72px !important;
+  height: auto !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+section img.codear-title-logo,
+div#\:\$p>svg>foreignObject>section img.codear-title-logo {
+  position: relative !important;
+  display: block !important;
+  max-width: min(400px, 44vw) !important;
+  max-height: 200px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 auto 0.75em !important;
+  object-fit: contain !important;
+}
+
+section img.codear-closing-logo,
+div#\:\$p>svg>foreignObject>section img.codear-closing-logo {
+  max-width: 260px !important;
+  max-height: 120px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 auto 0.9em !important;
+  object-fit: contain !important;
+}
+
+/* Fluxogramas (Mermaid → SVG), slide dedicado */
+section img.codear-flowchart,
+div#\:\$p>svg>foreignObject>section img.codear-flowchart {
+  max-width: 96% !important;
+  max-height: 460px !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0.2em auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+section .codear-icon-row img,
+section img.codear-icon,
+div#\:\$p>svg>foreignObject>section .codear-icon-row img,
+div#\:\$p>svg>foreignObject>section img.codear-icon {
+  max-width: 44px !important;
+  max-height: 44px !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
+}
+
+/* Código longo: duas colunas (HTML gerado no deck) */
+section .codear-code-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5em;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Marp: evitar dois <pre> no meio do slide — o primeiro </pre> fecha o envoltório interno. */
+section .codear-code-2col .codear-pre-col {
+  margin: 0 !important;
+  max-height: 520px;
+  overflow: hidden;
+  font-family: var(--font-title) !important;
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  padding: 0.5em 0.55em !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  color: var(--code-editor-fg) !important;
+  background: var(--code-editor-bg) !important;
+  border: 1px solid #2d2d2d !important;
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 4px 24px rgba(0, 0, 0, 0.22) !important;
+}
+
+div#\:\$p>svg>foreignObject>section .codear-code-2col .codear-pre-col {
+  margin: 0 !important;
+  max-height: 520px;
+  overflow: hidden;
+  font-family: var(--font-title) !important;
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  padding: 0.5em 0.55em !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  color: var(--code-editor-fg) !important;
+  background: var(--code-editor-bg) !important;
+  border: 1px solid #2d2d2d !important;
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 4px 24px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* Referência HTML estática: <pre> dentro de .codear-code-2col (ex.: slides-layout-reference). */
+section .codear-code-2col pre {
+  margin: 0 !important;
+  max-height: 520px;
+  overflow: hidden;
+  font-family: var(--font-title) !important;
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  padding: 0.5em 0.55em !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  color: var(--code-editor-fg) !important;
+}
+
+section .codear-code-2col pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  display: block;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+div#\:\$p>svg>foreignObject>section .codear-code-2col pre {
+  margin: 0 !important;
+  max-height: 520px;
+  overflow: hidden;
+  font-family: var(--font-title) !important;
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  padding: 0.5em 0.55em !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  color: var(--code-editor-fg) !important;
+}
+
+div#\:\$p>svg>foreignObject>section .codear-code-2col pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  display: block;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* Variante compacta (ref. .codear-code-2col--long no slides-layout-reference.html) */
+section .codear-code-2col--long .codear-pre-col,
+div#\:\$p>svg>foreignObject>section .codear-code-2col--long .codear-pre-col {
+  max-height: 440px !important;
+  font-size: 15px !important;
+  line-height: 1.32 !important;
+}
+
+section .codear-code-2col--long pre,
+div#\:\$p>svg>foreignObject>section .codear-code-2col--long pre {
+  max-height: 440px !important;
+  font-size: 15px !important;
+  line-height: 1.32 !important;
+}
+
+section .codear-code-2col--long pre code,
+div#\:\$p>svg>foreignObject>section .codear-code-2col--long pre code {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+div#\:\$p>svg>foreignObject>section pre,
+div#\:\$p>svg>foreignObject>section marp-pre {
+  background: var(--code-editor-bg) !important;
+  border: 1px solid #2d2d2d !important;
+  color: var(--code-editor-fg) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 4px 24px rgba(0, 0, 0, 0.22) !important;
+}
+
+div#\:\$p>svg>foreignObject>section pre code.hljs,
+div#\:\$p>svg>foreignObject>section marp-pre code.hljs {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+/* Etapa 2: programas longos num único fence (sem HTML em 2 colunas). */
+section.agenda.codear-portugol-long pre code,
+section.agenda.codear-portugol-long marp-pre code,
+div#\:\$p>svg>foreignObject>section.agenda.codear-portugol-long pre code,
+div#\:\$p>svg>foreignObject>section.agenda.codear-portugol-long marp-pre code {
+  font-size: 17px !important;
+  line-height: 1.32 !important;
+}
+
+/* Slide só com código (sem título nem parágrafo) — mais área útil para o pre. */
+section.agenda.codear-slide-code-only pre,
+section.agenda.codear-slide-code-only marp-pre,
+div#\:\$p>svg>foreignObject>section.agenda.codear-slide-code-only pre,
+div#\:\$p>svg>foreignObject>section.agenda.codear-slide-code-only marp-pre {
+  max-height: 600px !important;
+  margin-block: 0.15em 0.35em !important;
+}
+
+section.agenda.codear-slide-code-only.codear-portugol-long pre,
+section.agenda.codear-slide-code-only.codear-portugol-long marp-pre,
+div#\:\$p>svg>foreignObject>section.agenda.codear-slide-code-only.codear-portugol-long pre,
+div#\:\$p>svg>foreignObject>section.agenda.codear-slide-code-only.codear-portugol-long marp-pre {
+  max-height: 640px !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-title);
+  color: var(--codear-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+
+/* Conteúdo: título centrado (sem :first-of-type — cada slide Marp é um fragmento) */
+section:not(.lead):not(.title):not(.section):not(.quote):not(.dark):not(.invert):not(.closing) h1,
+section:not(.lead):not(.title):not(.section):not(.quote):not(.dark):not(.invert):not(.closing) h2 {
+  text-align: center;
+  width: 100%;
+}
+
+a {
+  color: var(--codear-orange);
+}
+
+strong {
+  color: var(--codear-accent-warm);
+  font-weight: 700;
+}
+
+section.quote strong {
+  color: inherit;
+}
+
+blockquote {
+  border-left: 4px solid var(--codear-orange);
+  color: var(--codear-muted);
+  background: rgba(255, 255, 255, 0.65);
+  padding: 0.5em 1em;
+}
+
+code {
+  font-family: var(--font-title);
+  background: var(--codear-bg-elevated);
+  border: 1px solid var(--codear-border);
+  border-radius: 0.2em;
+  padding: 0.06em 0.32em;
+  font-size: 0.88em;
+}
+
+pre {
+  background: var(--code-editor-bg);
+  border: 1px solid #2d2d2d;
+  border-radius: 0.45rem;
+  color: var(--code-editor-fg);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 4px 24px rgba(0, 0, 0, 0.22);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  color: inherit;
+}
+
+div#\:\$p>svg>foreignObject>section pre code {
+  font-size: 22px !important;
+  line-height: 1.38 !important;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+}
+
+header {
+  color: var(--codear-muted);
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+footer {
+  color: var(--codear-muted);
+  font-size: 0.7em;
+}
+
+section.lead header,
+section.title header,
+section.section header,
+section.agenda header,
+section.split header,
+section.dark header,
+section.invert header,
+section.closing header,
+section.quote header,
+div#\:\$p>svg>foreignObject>section.lead header,
+div#\:\$p>svg>foreignObject>section.title header,
+div#\:\$p>svg>foreignObject>section.section header,
+div#\:\$p>svg>foreignObject>section.agenda header,
+div#\:\$p>svg>foreignObject>section.split header,
+div#\:\$p>svg>foreignObject>section.dark header,
+div#\:\$p>svg>foreignObject>section.invert header,
+div#\:\$p>svg>foreignObject>section.closing header,
+div#\:\$p>svg>foreignObject>section.quote header {
+  color: var(--codear-muted);
+  opacity: 0.85;
+}
+
+table {
+  font-size: 0.85em;
+}
+
+th {
+  background: var(--codear-bg-elevated);
+  color: var(--codear-heading);
+}
+
+/* ——— Slides com logo canto + lista “Nesta aula” numerada (antes: style inline em generate.mjs) ——— */
+section:not(.title):not(.section):not(.closing):not(.quote):not(.dark):not(.invert),
+section.agenda {
+  position: relative !important;
+}
+
+div#\:\$p>svg>foreignObject>section:not(.title):not(.section):not(.closing):not(.quote):not(.dark):not(.invert),
+div#\:\$p>svg>foreignObject>section.agenda {
+  position: relative !important;
+}
+
+ul.codear-agenda-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0.5em 0 0 !important;
+  counter-reset: codear-agenda !important;
+  text-align: left !important;
+}
+
+div#\:\$p>svg>foreignObject>section ul.codear-agenda-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0.5em 0 0 !important;
+  counter-reset: codear-agenda !important;
+  text-align: left !important;
+}
+
+ul.codear-agenda-list li {
+  counter-increment: codear-agenda !important;
+  margin-bottom: 0.55em !important;
+  padding-left: 2.5em !important;
+  position: relative !important;
+  line-height: 1.42 !important;
+}
+
+div#\:\$p>svg>foreignObject>section ul.codear-agenda-list li {
+  counter-increment: codear-agenda !important;
+  margin-bottom: 0.55em !important;
+  padding-left: 2.5em !important;
+  position: relative !important;
+  line-height: 1.42 !important;
+}
+
+ul.codear-agenda-list li::before {
+  content: counter(codear-agenda, decimal-leading-zero) !important;
+  position: absolute !important;
+  left: 0 !important;
+  font-family: var(--font-title), ui-monospace, monospace !important;
+  font-weight: 600 !important;
+  color: #d68b1e !important;
+  min-width: 2.2ch !important;
+}
+
+div#\:\$p>svg>foreignObject>section ul.codear-agenda-list li::before {
+  content: counter(codear-agenda, decimal-leading-zero) !important;
+  position: absolute !important;
+  left: 0 !important;
+  font-family: var(--font-title), ui-monospace, monospace !important;
+  font-weight: 600 !important;
+  color: #d68b1e !important;
+  min-width: 2.2ch !important;
+}
+
+section.dark p.codear-dark-cta,
+div#\:\$p>svg>foreignObject>section.dark p.codear-dark-cta {
+  color: #cbd5e1 !important;
+  font-size: 0.95em !important;
+  max-width: 36ch !important;
+  margin: 0.85em auto 0 !important;
+  line-height: 1.4 !important;
+}

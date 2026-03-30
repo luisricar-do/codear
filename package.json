@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "slides:export": "npm run pdf --prefix tools/slides --",
+    "slides:list": "node tools/slides/scripts/slides-cli.mjs list",
+    "slides:diagrams": "node tools/slides/scripts/slides-cli.mjs diagrams",
+    "slides:generate": "node tools/slides/scripts/slides-cli.mjs generate",
+    "slides:build": "node tools/slides/scripts/slides-cli.mjs build",
+    "slides:icons": "npm run icons:build --prefix tools/slides"
   },
   "dependencies": {
     "framer-motion": "^12.34.5",

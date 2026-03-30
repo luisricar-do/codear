@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CODEAR — referência de layout (slides)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=JetBrains+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --font-title: "Fira Code", ui-monospace, monospace;
+      --font-body: "JetBrains Sans", ui-sans-serif, system-ui, sans-serif;
+      --codear-navy: #002d40;
+      --codear-orange: #d68b1e;
+      --codear-orange-bright: #e28c2e;
+      --codear-accent-warm: #c27803;
+      --codear-ink: #0f172a;
+      --codear-muted: #475569;
+      --codear-paper: #ffffff;
+      --codear-squiggle: #0a0a0a;
+      --slide-radius: 12px;
+      --slide-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+      font-family: var(--font-body);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 2.5rem 1.5rem 4rem;
+      background: #e2e8f0;
+      color: var(--codear-ink);
+      line-height: 1.5;
+      font-family: var(--font-body);
+    }
+
+    .page-title {
+      max-width: 72rem;
+      margin: 0 auto 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--codear-muted);
+    }
+
+    .deck {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* 16:9 — mesma proporção do Marp (size: 16:9) */
+    .slide {
+      position: relative;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--slide-radius);
+      overflow: hidden;
+      box-shadow: var(--slide-shadow);
+      font-family: var(--font-body);
+    }
+
+    .squiggle {
+      position: absolute;
+      pointer-events: none;
+      fill: none;
+      stroke: var(--codear-squiggle);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.88;
+    }
+
+    .squiggle--tr {
+      top: -4%;
+      right: -2%;
+      width: 28%;
+      height: auto;
+    }
+
+    .squiggle--bl {
+      bottom: -6%;
+      left: -3%;
+      width: 32%;
+      height: auto;
+    }
+
+    /* ——— Slide de título (capa) ——— */
+    .slide--title {
+      background: var(--codear-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5% 8% min(18%, 150px);
+      text-align: center;
+      min-height: 0;
+    }
+
+    .slide--title__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(1.2rem, 2.5vw, 1.5rem);
+      max-width: 90%;
+      z-index: 1;
+      flex: 0 1 auto;
+    }
+
+    .slide--title__logo {
+      width: min(54%, 440px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .slide--title__module {
+      font-family: var(--font-title);
+      font-weight: 600;
+      font-size: clamp(1.38rem, 3.05vw, 2.1rem);
+      color: var(--codear-navy);
+      letter-spacing: -0.02em;
+      margin: 0;
+      max-width: 28ch;
+      line-height: 1.2;
+    }
+
+    .slide--title__subtitle {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.1rem, 2.25vw, 1.42rem);
+      font-weight: 500;
+      color: var(--codear-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ——— Slide de conteúdo ——— */
+    .slide--content {
+      background: #f7f7f7;
+      padding: 5% 5.5% min(18%, 150px);
+      padding-right: min(22%, 240px);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .slide--content__logo {
+      position: absolute;
+      right: 3.5%;
+      bottom: 4%;
+      width: min(20%, 160px);
+      max-width: 320px;
+      height: auto;
+      object-fit: contain;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .slide--content__wrap {
+      flex: 0 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 0;
+      z-index: 1;
+    }
+
+    .slide--content__column {
+      width: 100%;
+      max-width: min(42rem, 92%);
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: clamp(1.15rem, 2.4vw, 1.55rem);
+    }
+
+    .slide--content__heading {
+      font-family: var(--font-title);
+      font-size: clamp(1.52rem, 3.1vw, 2.2rem);
+      font-weight: 700;
+      color: #0a0a0a;
+      margin: 0;
+      letter-spacing: -0.02em;
+      line-height: 1.22;
+      text-align: center;
+      width: 100%;
+    }
+
+    .slide--content__main {
+      font-family: var(--font-body);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.75rem, 1.55vw, 1.1rem);
+    }
+
+    .slide--content__lead {
+      margin: 0;
+      font-size: clamp(1.06rem, 1.95vw, 1.38rem);
+      color: #0a0a0a;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .slide--content__lead strong,
+    .slide--content__list strong {
+      color: var(--codear-accent-warm);
+      font-weight: 700;
+    }
+
+    .slide--content__list {
+      margin: 0;
+      padding-left: 1.35rem;
+      font-size: clamp(1.06rem, 1.95vw, 1.36rem);
+      color: #0a0a0a;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .slide--content__list li {
+      margin-bottom: 0.45em;
+    }
+
+    .slide--content__list li::marker {
+      color: #0a0a0a;
+    }
+
+    .slide--content__iconrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(0.85rem, 2.2vw, 1.35rem);
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.25rem;
+    }
+
+    .slide--content__iconrow img {
+      width: clamp(40px, 5.5vw, 56px);
+      height: clamp(40px, 5.5vw, 56px);
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    /* ——— Secção (capítulo) ——— */
+    .slide--section {
+      background: var(--codear-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5% 8% min(18%, 150px);
+      text-align: center;
+      min-height: 0;
+    }
+
+    .slide--section__inner {
+      max-width: min(38rem, 92%);
+      z-index: 1;
+      flex: 0 1 auto;
+    }
+
+    .slide--section__label {
+      margin: 0 0 0.55rem;
+      font-family: var(--font-body);
+      font-size: clamp(0.92rem, 1.7vw, 1.08rem);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--codear-orange);
+    }
+
+    .slide--section__title {
+      font-family: var(--font-title);
+      font-size: clamp(2.1rem, 4.65vw, 3.25rem);
+      font-weight: 700;
+      color: var(--codear-navy);
+      margin: 0;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .slide--section__hint {
+      margin: 1.15rem 0 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.02rem, 1.78vw, 1.25rem);
+      color: var(--codear-muted);
+      line-height: 1.45;
+    }
+
+    /* ——— Agenda ——— */
+    .slide--agenda {
+      background: #f7f7f7;
+      padding: 5% 5.5% min(18%, 150px);
+      padding-right: min(22%, 240px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .slide--agenda__logo {
+      position: absolute;
+      right: 3.5%;
+      bottom: 4%;
+      width: min(18%, 150px);
+      height: auto;
+      object-fit: contain;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .slide--agenda__wrap {
+      flex: 0 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 0;
+      z-index: 1;
+    }
+
+    .slide--agenda__column {
+      width: 100%;
+      max-width: min(40rem, 92%);
+      margin: 0 auto;
+    }
+
+    .slide--agenda__heading {
+      font-family: var(--font-title);
+      font-size: clamp(1.52rem, 3.05vw, 2.1rem);
+      font-weight: 700;
+      color: #0a0a0a;
+      text-align: center;
+      margin: 0 0 clamp(1.2rem, 2.4vw, 1.75rem);
+      line-height: 1.2;
+    }
+
+    .slide--agenda__list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: agenda;
+      display: flex;
+      flex-direction: column;
+      gap: 0.72em;
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.9vw, 1.34rem);
+      color: #0a0a0a;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .slide--agenda__list li {
+      counter-increment: agenda;
+      display: flex;
+      gap: 0.75em;
+      align-items: baseline;
+      padding-left: 0;
+    }
+
+    .slide--agenda__list li::before {
+      content: counter(agenda, decimal-leading-zero);
+      font-family: var(--font-title);
+      font-weight: 600;
+      color: var(--codear-orange);
+      min-width: 2ch;
+      flex-shrink: 0;
+    }
+
+    /* ——— Citação / destaque ——— */
+    .slide--quote {
+      background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5% 10% min(18%, 150px);
+      min-height: 0;
+    }
+
+    .slide--quote__inner {
+      max-width: min(40rem, 92%);
+      z-index: 1;
+      text-align: center;
+      flex: 0 1 auto;
+    }
+
+    .slide--quote__mark {
+      font-family: var(--font-title);
+      font-size: clamp(3rem, 7vw, 4.65rem);
+      line-height: 0.5;
+      color: var(--codear-orange);
+      opacity: 0.45;
+      margin: 0 0 0.35rem;
+    }
+
+    .slide--quote__text {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.22rem, 2.45vw, 1.62rem);
+      font-weight: 600;
+      color: var(--codear-navy);
+      line-height: 1.42;
+    }
+
+    .slide--quote__cite {
+      margin: 1.25rem 0 0;
+      font-family: var(--font-body);
+      font-size: clamp(0.98rem, 1.58vw, 1.15rem);
+      color: var(--codear-muted);
+      font-style: normal;
+    }
+
+    /* ——— Marca em fundo escuro ——— */
+    .slide--dark {
+      background: #0c0c0c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5% 8% min(18%, 150px);
+      text-align: center;
+      min-height: 0;
+    }
+
+    .slide--dark .squiggle {
+      stroke: rgba(226, 140, 46, 0.35);
+    }
+
+    .slide--dark__logo {
+      width: min(72%, 420px);
+      height: auto;
+      object-fit: contain;
+      filter: brightness(1.05);
+      z-index: 1;
+      flex: 0 1 auto;
+    }
+
+    .slide--dark__tagline {
+      margin: 1.35rem 0 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.02rem, 1.88vw, 1.22rem);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--codear-orange-bright);
+      z-index: 1;
+    }
+
+    /* ——— Encerramento ——— */
+    .slide--closing {
+      background: var(--codear-paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5% 8% min(18%, 150px);
+      text-align: center;
+      min-height: 0;
+    }
+
+    .slide--closing__logo {
+      width: min(46%, 360px);
+      height: auto;
+      margin-bottom: clamp(1.25rem, 2.5vw, 1.65rem);
+      z-index: 1;
+      flex: 0 1 auto;
+    }
+
+    .slide--closing__title {
+      font-family: var(--font-title);
+      font-size: clamp(1.85rem, 3.75vw, 2.65rem);
+      font-weight: 700;
+      color: var(--codear-navy);
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .slide--closing__line {
+      margin: 0.95rem 0 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.08rem, 1.95vw, 1.35rem);
+      color: var(--codear-muted);
+      line-height: 1.45;
+      max-width: 36ch;
+    }
+
+    .slide--closing__url {
+      margin: 1.35rem 0 0;
+      font-family: var(--font-title);
+      font-size: clamp(1.05rem, 1.78vw, 1.22rem);
+      font-weight: 600;
+      color: var(--codear-orange);
+    }
+
+    /* ——— Comparativo (duas colunas) ——— */
+    .slide--split {
+      background: #f7f7f7;
+      padding: 5% 5.5% min(18%, 150px);
+      padding-right: min(22%, 240px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .slide--split__logo {
+      position: absolute;
+      right: 3%;
+      bottom: 3.5%;
+      width: min(16%, 130px);
+      height: auto;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .slide--split__wrap {
+      flex: 0 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      width: 100%;
+      min-height: 0;
+    }
+
+    .slide--split__inner {
+      width: 100%;
+      max-width: min(44rem, 92%);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .slide--split__heading {
+      font-family: var(--font-title);
+      font-size: clamp(1.55rem, 3.4vw, 2.35rem);
+      font-weight: 700;
+      text-align: center;
+      color: #0a0a0a;
+      margin: 0 0 clamp(1.35rem, 2.8vw, 2rem);
+      width: 100%;
+      line-height: 1.2;
+    }
+
+    .slide--split__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.35rem, 3.5vw, 2.75rem);
+      width: 100%;
+      text-align: left;
+      align-items: start;
+    }
+
+    .slide--split__col-title {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.75vw, 1.12rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--codear-orange);
+      margin: 0 0 0.65rem;
+    }
+
+    .slide--split__col-body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.95vw, 1.38rem);
+      color: #0a0a0a;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 520px) {
+      .slide--split__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ——— Código na tela (tema editor escuro + alinhamento Marp) ——— */
+    :root {
+      /* Paleta tipo VS Code Dark+ (spans .ch-*) */
+      --code-editor-bg: #1e1e1e;
+      --code-editor-fg: #d4d4d4;
+      --code-editor-kw: #569cd6;
+      --code-editor-str: #ce9178;
+      --code-editor-cm: #6a9955;
+      --code-editor-fn: #dcdcaa;
+      --code-editor-num: #b5cea8;
+      --code-editor-type: #4ec9b0;
+      --code-editor-dec: #c586c0;
+    }
+
+    .slide--content--wide .slide--content__column {
+      max-width: min(48rem, 94%);
+    }
+
+    .slide--content--code-mega .slide--content__column {
+      max-width: min(52rem, 96%);
+    }
+
+    .slide--content code {
+      font-family: var(--font-title);
+      font-size: 0.88em;
+      background: #efefef;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.2em;
+      padding: 0.06em 0.32em;
+    }
+
+    .slide--content__heading code {
+      color: inherit;
+      background: rgba(15, 23, 42, 0.06);
+      border-color: rgba(148, 163, 184, 0.45);
+    }
+
+    .slide--content pre {
+      margin: 0;
+      background: var(--code-editor-bg);
+      border: 1px solid #2d2d2d;
+      border-radius: 0.45rem;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 4px 24px rgba(0, 0, 0, 0.22);
+      padding: clamp(0.55rem, 1.05vw, 0.8rem) clamp(0.65rem, 1.2vw, 0.95rem);
+      overflow: auto;
+      text-align: left;
+    }
+
+    .slide--content pre code {
+      font-family: var(--font-title);
+      font-size: clamp(0.74rem, 1.38vw, 0.98rem);
+      line-height: 1.38;
+      background: transparent;
+      border: none;
+      padding: 0;
+      display: block;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--code-editor-fg);
+      font-weight: 400;
+    }
+
+    .slide--content pre code .ch-kw {
+      color: var(--code-editor-kw);
+    }
+
+    .slide--content pre code .ch-str {
+      color: var(--code-editor-str);
+    }
+
+    .slide--content pre code .ch-cm {
+      color: var(--code-editor-cm);
+      font-style: italic;
+    }
+
+    .slide--content pre code .ch-fn {
+      color: var(--code-editor-fn);
+    }
+
+    .slide--content pre code .ch-num {
+      color: var(--code-editor-num);
+    }
+
+    .slide--content pre code .ch-type {
+      color: var(--code-editor-type);
+    }
+
+    .slide--content pre code .ch-dec {
+      color: var(--code-editor-dec);
+    }
+
+    /* Bloco longo em 2 colunas: ligeiramente mais compacto para caber no 16:9 */
+    .codear-code-2col--long pre code {
+      font-size: clamp(0.62rem, 1.05vw, 0.82rem) !important;
+      line-height: 1.34 !important;
+    }
+
+    .slide--content__code-caption {
+      margin: 0 0 0.4rem;
+      font-family: var(--font-body);
+      font-size: clamp(0.76rem, 1.3vw, 0.88rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--codear-orange);
+      text-align: left;
+    }
+
+    .codear-code-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+      width: 100%;
+      align-items: start;
+      box-sizing: border-box;
+    }
+
+    .codear-code-2col pre {
+      max-height: min(50vh, 400px);
+    }
+
+    .codear-code-2col--long pre {
+      max-height: min(56vh, 440px);
+    }
+
+    @media (max-width: 640px) {
+      .codear-code-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hint {
+      max-width: 72rem;
+      margin: 2.5rem auto 0;
+      padding: 1rem 1.25rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.875rem;
+      color: var(--codear-muted);
+    }
+
+    .hint code {
+      font-family: var(--font-title);
+      font-size: 0.82em;
+      background: #e2e8f0;
+      padding: 0.12em 0.35em;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="page-title">Referência visual — fragmentos Marp reutilizáveis: <code>tools/slides/components/marp/</code>
+    (catálogo: <code>tools/slides/components/registry.json</code>) · classes: <code>slide--title</code>,
+    <code>slide--content</code>,
+    <code>slide--section</code>, <code>slide--agenda</code>, <code>slide--quote</code>, <code>slide--dark</code>,
+    <code>slide--split</code>, <code>slide--closing</code> · código: <code>pre</code>/<code>code</code> (fundo editor),
+    spans <code>.ch-kw</code>…<code>.ch-dec</code>, <code>slide--content--wide</code>,
+    <code>slide--content--code-mega</code>,
+    <code>.codear-code-2col--long</code> ·
+    ícones: <code>tools/slides/icons/svg/</code> (Lucide)
+  </p>
+
+  <div class="deck">
+    <!-- Slide de título -->
+    <article class="slide slide--title" aria-label="Slide de título">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <div class="slide--title__inner">
+        <img class="slide--title__logo" src="../../../public/assets/icone-grande.png"
+          alt="CODEAR — Do zero ao código" />
+        <h1 class="slide--title__module">Nome do módulo ou da aula</h1>
+        <p class="slide--title__subtitle">Subtítulo opcional</p>
+      </div>
+    </article>
+
+    <!-- Slide de conteúdo -->
+    <article class="slide slide--content" aria-label="Slide de conteúdo">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--content__logo" src="../../../public/assets/icone-grande.png" alt="" width="320" height="120" />
+      <div class="slide--content__wrap">
+        <div class="slide--content__column">
+          <h2 class="slide--content__heading">Como não se perder no código?</h2>
+          <div class="slide--content__main">
+            <p class="slide--content__lead">
+              O computador é <strong>rápido</strong>, mas é <strong>burro</strong>. Ele segue exatamente o que você
+              manda.
+            </p>
+            <ul class="slide--content__list">
+              <li>Se você começar a escrever código sem planejar, vai criar um labirinto <strong>impossível de
+                  sair</strong>.</li>
+              <li>A solução? <strong>Desenhar</strong> o mapa <strong>antes</strong> de <strong>construir</strong> a
+                <strong>estrada</strong>.
+              </li>
+            </ul>
+            <div class="slide--content__iconrow" aria-hidden="true">
+              <img src="../icons/svg/brain.svg" alt="" width="48" height="48" />
+              <img src="../icons/svg/workflow.svg" alt="" width="48" height="48" />
+              <img src="../icons/svg/cpu.svg" alt="" width="48" height="48" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Secção (capítulo) -->
+    <article class="slide slide--section" aria-label="Slide de secção">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <div class="slide--section__inner">
+        <p class="slide--section__label">Parte 2</p>
+        <h2 class="slide--section__title">Fluxogramas e algoritmos</h2>
+        <p class="slide--section__hint">Use entre blocos maiores da aula ou do módulo.</p>
+      </div>
+    </article>
+
+    <!-- Agenda -->
+    <article class="slide slide--agenda" aria-label="Slide de agenda">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--agenda__logo" src="../../../public/assets/icone-grande.png" alt="" width="280" height="100" />
+      <div class="slide--agenda__wrap">
+        <div class="slide--agenda__column">
+          <h2 class="slide--agenda__heading">Nesta aula</h2>
+          <ol class="slide--agenda__list">
+            <li>Revisão: o que é um algoritmo</li>
+            <li>Prática com fluxogramas</li>
+            <li>Exercícios e próximos passos</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+
+    <!-- Código: bloco único (pseudocódigo / algoritmo) -->
+    <article class="slide slide--content slide--content--wide" aria-label="Slide com bloco de código">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--content__logo" src="../../../public/assets/icone-grande.png" alt="" width="320" height="120" />
+      <div class="slide--content__wrap">
+        <div class="slide--content__column">
+          <h2 class="slide--content__heading">Código na tela — bloco único</h2>
+          <div class="slide--content__main">
+            <p class="slide--content__code-caption">Pseudocódigo — classes <code>.ch-kw</code>, <code>.ch-str</code>,
+              <code>.ch-fn</code>… dentro de <code>pre code</code>
+            </p>
+            <pre><code><span class="ch-kw">Algoritmo</span> Saudação
+  <span class="ch-kw">INÍCIO</span>
+    nome ← <span class="ch-fn">ler texto</span> do utilizador
+    <span class="ch-kw">SE</span> nome está vazio <span class="ch-kw">ENTÃO</span>
+      <span class="ch-fn">escrever</span> <span class="ch-str">"Olá, visitante!"</span>
+    <span class="ch-kw">SENÃO</span>
+      <span class="ch-fn">escrever</span> <span class="ch-str">"Olá, "</span> + nome + <span class="ch-str">"!"</span>
+    <span class="ch-kw">FIM SE</span>
+  <span class="ch-kw">FIM</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Código: inline + parágrafo -->
+    <article class="slide slide--content" aria-label="Slide com código inline">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--content__logo" src="../../../public/assets/icone-grande.png" alt="" width="320" height="120" />
+      <div class="slide--content__wrap">
+        <div class="slide--content__column">
+          <h2 class="slide--content__heading">Código inline e bloco curto</h2>
+          <div class="slide--content__main">
+            <p class="slide--content__lead">
+              Em Markdown/Marp, <code>print()</code> ou <code>escrever</code> aparecem destacados no meio da frase,
+              como no site.
+            </p>
+            <p class="slide--content__code-caption">Python (exemplo)</p>
+            <pre><code><span class="ch-kw">def</span> <span class="ch-fn">cumprimentar</span>(nome: <span class="ch-type">str</span>) -&gt; <span class="ch-type">None</span>:
+    msg = <span class="ch-str">f"Olá, {nome}!"</span> <span class="ch-kw">if</span> nome <span class="ch-kw">else</span> <span class="ch-str">"Olá, visitante!"</span>
+    <span class="ch-fn">print</span>(msg)</code></pre>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Código: duas colunas (classe .codear-code-2col no deck Marp) -->
+    <article class="slide slide--content slide--content--wide" aria-label="Slide código duas colunas">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--content__logo" src="../../../public/assets/icone-grande.png" alt="" width="320" height="120" />
+      <div class="slide--content__wrap">
+        <div class="slide--content__column">
+          <h2 class="slide--content__heading">Duas colunas — <code>.codear-code-2col</code></h2>
+          <div class="slide--content__main">
+            <p class="slide--content__lead">
+              No <strong>Marp</strong>, usar dois <code>&lt;div class="codear-pre-col"&gt;</code> dentro de
+              <code>.codear-code-2col</code> — <strong>não</strong> uses dois <code>&lt;pre&gt;</code>, porque o
+              primeiro
+              <code>&lt;/pre&gt;</code> parte o HTML que o Marp gera. (Nesta página estática mantemos
+              <code>&lt;pre&gt;&lt;code&gt;</code> com realce.) O tema <code>codear.css</code> dá o mesmo aspeto de
+              bloco
+              de código a <code>.codear-pre-col</code>.
+            </p>
+            <div class="codear-code-2col">
+              <div>
+                <p class="slide--content__code-caption">Entrada</p>
+                <pre><code><span class="ch-cm">// JavaScript</span>
+<span class="ch-kw">const</span> n = <span class="ch-type">Number</span>(<span class="ch-fn">prompt</span>(<span class="ch-str">"Idade?"</span>));
+<span class="ch-kw">if</span> (n &gt;= <span class="ch-num">18</span>) {
+  <span class="ch-type">console</span>.<span class="ch-fn">log</span>(<span class="ch-str">"Maior de idade"</span>);
+}</code></pre>
+              </div>
+              <div>
+                <p class="slide--content__code-caption">Saída esperada</p>
+                <pre><code><span class="ch-cm"># terminal</span>
+Idade? <span class="ch-num">20</span>
+Maior de idade</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Código muito longo: continuação em duas colunas (mesma função) -->
+    <article class="slide slide--content slide--content--code-mega" aria-label="Slide código longo duas colunas">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--content__logo" src="../../../public/assets/icone-grande.png" alt="" width="320" height="120" />
+      <div class="slide--content__wrap">
+        <div class="slide--content__column">
+          <h2 class="slide--content__heading">Código longo em duas colunas</h2>
+          <div class="slide--content__main">
+            <p class="slide--content__lead">
+              O mesmo módulo repartido: <strong>coluna 1</strong> (regex, helpers, início de
+              <code>registerUser</code>) e <strong>coluna 2</strong> (resto da função até ao retorno). Use
+              <code>.codear-code-2col--long</code> para caber no 16:9.
+            </p>
+            <div class="codear-code-2col codear-code-2col--long">
+              <div>
+                <p class="slide--content__code-caption">Parte 1 — cabeçalho e validações</p>
+                <pre><code><span class="ch-cm">/** Registo de utilizador — exemplo longo (referência layout). */</span>
+<span class="ch-kw">const</span> <span class="ch-type">EMAIL_RE</span> = <span class="ch-str">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>;
+<span class="ch-kw">const</span> <span class="ch-type">MIN_PASS</span> = <span class="ch-num">8</span>;
+
+<span class="ch-kw">function</span> <span class="ch-fn">normalizeEmail</span>(raw) {
+  <span class="ch-kw">return</span> <span class="ch-type">String</span>(raw).<span class="ch-fn">trim</span>().<span class="ch-fn">toLowerCase</span>();
+}
+
+<span class="ch-kw">function</span> <span class="ch-fn">scorePassword</span>(pwd) {
+  <span class="ch-kw">let</span> s = <span class="ch-num">0</span>;
+  <span class="ch-kw">if</span> (pwd.length &gt;= <span class="ch-type">MIN_PASS</span>) s++;
+  <span class="ch-kw">if</span> (<span class="ch-str">/[A-Z]/</span>.<span class="ch-fn">test</span>(pwd)) s++;
+  <span class="ch-kw">if</span> (<span class="ch-str">/[0-9]/</span>.<span class="ch-fn">test</span>(pwd)) s++;
+  <span class="ch-kw">return</span> s;
+}
+
+<span class="ch-kw">async function</span> <span class="ch-fn">registerUser</span>(payload) {
+  <span class="ch-kw">const</span> email = <span class="ch-fn">normalizeEmail</span>(payload.email);
+  <span class="ch-kw">if</span> (!<span class="ch-type">EMAIL_RE</span>.<span class="ch-fn">test</span>(email)) {
+    <span class="ch-kw">throw new</span> <span class="ch-type">Error</span>(<span class="ch-str">"E-mail inválido"</span>);
+  }</code></pre>
+              </div>
+              <div>
+                <p class="slide--content__code-caption">Parte 2 — corpo e resposta HTTP</p>
+                <pre><code>  <span class="ch-kw">const</span> pwd = <span class="ch-type">String</span>(payload.password ?? <span class="ch-str">""</span>);
+  <span class="ch-kw">if</span> (<span class="ch-fn">scorePassword</span>(pwd) &lt; <span class="ch-num">2</span>) {
+    <span class="ch-kw">throw new</span> <span class="ch-type">Error</span>(<span class="ch-str">"Palavra-passe fraca"</span>);
+  }
+  <span class="ch-kw">const</span> body = {
+    email,
+    name: <span class="ch-type">String</span>(payload.name || <span class="ch-str">""</span>).<span class="ch-fn">trim</span>(),
+    createdAt: <span class="ch-kw">new</span> <span class="ch-type">Date</span>().<span class="ch-fn">toISOString</span>(),
+  };
+  <span class="ch-kw">const</span> res = <span class="ch-kw">await</span> <span class="ch-fn">fetch</span>(<span class="ch-str">"/api/users"</span>, {
+    method: <span class="ch-str">"POST"</span>,
+    headers: { <span class="ch-str">"Content-Type"</span>: <span class="ch-str">"application/json"</span> },
+    body: <span class="ch-type">JSON</span>.<span class="ch-fn">stringify</span>(body),
+  });
+  <span class="ch-kw">if</span> (!res.ok) <span class="ch-kw">throw new</span> <span class="ch-type">Error</span>(<span class="ch-str">"HTTP "</span> + res.status);
+  <span class="ch-kw">return await</span> res.<span class="ch-fn">json</span>();
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Citação / destaque -->
+    <article class="slide slide--quote" aria-label="Slide de citação">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <div class="slide--quote__inner">
+        <p class="slide--quote__mark" aria-hidden="true">"</p>
+        <p class="slide--quote__text">Primeiro pensa, depois codifica — o mapa evita que te percas no labirinto.</p>
+        <p class="slide--quote__cite">Ideia central do CODEAR</p>
+      </div>
+    </article>
+
+    <!-- Marca em fundo escuro -->
+    <article class="slide slide--dark" aria-label="Slide marca fundo escuro">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--dark__logo" src="../../../public/assets/icone-grande.png" alt="CODEAR — Do zero ao código" />
+      <p class="slide--dark__tagline">Do zero ao código</p>
+    </article>
+
+    <!-- Comparativo duas colunas -->
+    <article class="slide slide--split" aria-label="Slide comparativo">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--split__logo" src="../../../public/assets/icone-grande.png" alt="" width="240" height="90" />
+      <div class="slide--split__wrap">
+        <div class="slide--split__inner">
+          <h2 class="slide--split__heading">Algoritmo vs programa</h2>
+          <div class="slide--split__grid">
+            <div>
+              <p class="slide--split__col-title">Algoritmo</p>
+              <p class="slide--split__col-body">Passos em linguagem humana ou diagrama. Independente da máquina.</p>
+            </div>
+            <div>
+              <p class="slide--split__col-title">Programa</p>
+              <p class="slide--split__col-body">Instruções numa linguagem que o computador consegue executar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Encerramento -->
+    <article class="slide slide--closing" aria-label="Slide de encerramento">
+      <svg class="squiggle squiggle--tr" viewBox="0 0 200 120" aria-hidden="true">
+        <path d="M 160 20 Q 120 50 150 80 T 130 105" />
+      </svg>
+      <svg class="squiggle squiggle--bl" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M 40 120 Q 80 90 50 55 T 70 25" />
+      </svg>
+      <img class="slide--closing__logo" src="../../../public/assets/icone-grande.png" alt="CODEAR" />
+      <h2 class="slide--closing__title">Até a próxima</h2>
+      <p class="slide--closing__line">Até a próxima aula!</p>
+      <p class="slide--closing__url">codear.luisr.com.br</p>
+    </article>
+  </div>
+
+  <aside class="hint">
+    <strong>Código nos slides:</strong> blocos <code>pre</code> usam fundo tipo editor (escuro); realce manual com
+    <code>.ch-kw</code> <code>.ch-str</code> <code>.ch-cm</code> <code>.ch-fn</code> <code>.ch-num</code>
+    <code>.ch-type</code> <code>.ch-dec</code>. Para trechos enormes: <code>.codear-code-2col--long</code> em grelha de
+    duas colunas.
+    <strong>Logo:</strong> ficheiro em <code>tools/slides/templates/</code> — logo em
+    <code>../../../public/assets/icone-grande.png</code>. Nos decks Marp (<code>tools/slides/decks/</code>), usar
+    <code>../../../public/assets/icone-grande.png</code> e <code>--allow-local-files</code>.
+    <strong>Ícones:</strong> biblioteca em <code>tools/slides/icons/svg/</code> (ex.: <code>../icons/svg/cpu.svg</code>
+    a partir deste HTML). Lista e regerar: <code>npm run slides:icons</code> na raiz do repo; detalhes em
+    <code>tools/slides/icons/README.md</code>.
+  </aside>
+</body>
+
+</html>

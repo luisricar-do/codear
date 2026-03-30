@@ -1,0 +1,88 @@
+{
+  "description": "Catálogo de componentes de slide. Cada entrada liga o modelo HTML (slides-layout-reference.html) ao fragmento Marp reutilizável.",
+  "templateHtml": "../templates/slides-layout-reference.html",
+  "theme": "../theme/codear.css",
+  "components": [
+    {
+      "id": "title",
+      "label": "Capa (título)",
+      "htmlClass": "slide--title",
+      "marpFragment": "marp/title.md",
+      "marpDirective": "<!-- _class: title -->"
+    },
+    {
+      "id": "content-agenda",
+      "label": "Conteúdo com logo no canto",
+      "htmlClass": "slide--content",
+      "marpFragment": "marp/content-agenda.md",
+      "marpDirective": "<!-- _class: agenda -->",
+      "note": "No Marp usamos _class agenda para fundo #f7f7f7 + position relative e logo com codear-corner-logo (igual ao deck gerado etapa-2)."
+    },
+    {
+      "id": "section",
+      "label": "Marca de secção",
+      "htmlClass": "slide--section",
+      "marpFragment": "marp/section.md",
+      "marpDirective": "<!-- _class: section -->"
+    },
+    {
+      "id": "agenda-list",
+      "label": "Agenda numerada (Nesta aula)",
+      "htmlClass": "slide--agenda",
+      "marpFragment": "marp/agenda-list.md",
+      "marpDirective": "<!-- _class: agenda --> + ul.codear-agenda-list"
+    },
+    {
+      "id": "quote",
+      "label": "Citação / destaque",
+      "htmlClass": "slide--quote",
+      "marpFragment": "marp/quote.md",
+      "marpDirective": "<!-- _class: quote -->"
+    },
+    {
+      "id": "dark",
+      "label": "Marca fundo escuro",
+      "htmlClass": "slide--dark",
+      "marpFragment": "marp/dark.md",
+      "marpDirective": "<!-- _class: dark -->"
+    },
+    {
+      "id": "split",
+      "label": "Comparativo duas colunas",
+      "htmlClass": "slide--split",
+      "marpFragment": "marp/split.md",
+      "marpDirective": "<!-- _class: split -->"
+    },
+    {
+      "id": "closing",
+      "label": "Encerramento",
+      "htmlClass": "slide--closing",
+      "marpFragment": "marp/closing.md",
+      "marpDirective": "<!-- _class: closing -->"
+    },
+    {
+      "id": "code-block",
+      "label": "Código (fenced)",
+      "htmlClass": "slide--content + pre",
+      "marpFragment": "marp/code-block.md"
+    },
+    {
+      "id": "code-2col",
+      "label": "Código duas colunas",
+      "htmlClass": "slide--content + .codear-code-2col",
+      "marpFragment": "marp/code-2col.md"
+    },
+    {
+      "id": "code-2col-long",
+      "label": "Código longo duas colunas",
+      "htmlClass": "slide--content--code-mega + .codear-code-2col--long",
+      "marpFragment": "marp/code-2col-long.md"
+    },
+    {
+      "id": "flowchart",
+      "label": "Imagem fluxograma (Mermaid export)",
+      "htmlClass": "slide--content + img",
+      "marpFragment": "marp/flowchart-image.md"
+    }
+  ]
+}

@@ -15,6 +15,11 @@
           "slug": "etapa-1-o-mapa-do-codigo",
           "title": "Etapa 1: O mapa do código (fluxogramas)",
           "hasSlides": true
+        },
+        {
+          "slug": "etapa-2-colocando-em-pratica",
+          "title": "Etapa 2: Colocando em prática (Portugol)",
+          "hasSlides": true
         }
       ]
     }

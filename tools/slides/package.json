@@ -1,0 +1,16 @@
+{
+  "name": "@codear/slides",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Decks Marp para exportar slides.pdf do CODEAR",
+  "scripts": {
+    "pdf": "marp --no-stdin",
+    "cli": "node scripts/slides-cli.mjs",
+    "icons:build": "node scripts/icons-build.mjs"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.1.2",
+    "@mermaid-js/mermaid-cli": "^11.4.0",
+    "lucide": "^1.7.0"
+  }
+}
