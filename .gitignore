@@ -59,4 +59,3 @@ tools/slides/decks/*.md
 tools/slides/sources/
 tools/slides/icons/*
 tools/slides/registry.json
-content/cursos/**/slides.pdf
