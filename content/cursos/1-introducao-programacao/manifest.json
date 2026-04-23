@@ -20,6 +20,11 @@
           "slug": "etapa-2-colocando-em-pratica",
           "title": "Etapa 2: Colocando em prática (Portugol)",
           "hasSlides": true
+        },
+        {
+          "slug": "etapa-3-revisao-logica-preparacao-c",
+          "title": "Etapa 3: Revisão lógica e preparação para C (loops)",
+          "hasSlides": true
         }
       ]
     }
