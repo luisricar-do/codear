@@ -25,6 +25,11 @@
           "slug": "etapa-3-revisao-logica-preparacao-c",
           "title": "Etapa 3: Revisão lógica e preparação para C (loops)",
           "hasSlides": true
+        },
+        {
+          "slug": "etapa-4-lacos-portugol-para-enquanto",
+          "title": "Etapa 4: Aula prática — Laços em Portugol (PARA e ENQUANTO)",
+          "hasSlides": true
         }
       ]
     }
